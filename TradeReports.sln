@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeReports.Core", "TradeReports.Model\TradeReports.Core.csproj", "{2CBB4696-125D-4507-821B-C1372DD66770}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeReports.Core", "TradeReports.Core\TradeReports.Core.csproj", "{2CBB4696-125D-4507-821B-C1372DD66770}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeReports.UI", "TradeReports.UI\TradeReports.UI.csproj", "{7136C147-EBA9-4468-BD23-812EAFC5EF0B}"
 EndProject

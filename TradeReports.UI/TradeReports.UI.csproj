@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TradeReports.Model\TradeReports.Core.csproj" />
+    <ProjectReference Include="..\TradeReports.Core\TradeReports.Core.csproj" />
     <ProjectReference Include="..\TradeReports.UI.Core\TradeReports.UI.Core.csproj" />
   </ItemGroup>
 
