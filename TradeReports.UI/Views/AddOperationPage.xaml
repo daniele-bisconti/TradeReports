@@ -1,9 +1,11 @@
-﻿<Page x:Class="TradeReports.UI.Views.AddOperationPage"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TradeReports.UI.Views"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="TradeReports.UI.Views.AddOperationPage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddOperationPage">
@@ -11,77 +13,79 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock
             Style="{StaticResource PageTitleStyle}"
             Margin="{StaticResource MediumLeftMargin}"
-            Text="Nuova Operazione" />
+            Text="Nuova Operazione" Foreground="White" 
+            />
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
             <Grid >
 
                 <Grid.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="Margin" Value="10, 10, 10, 10"></Setter>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Margin" Value="10, 10, 10, 10"/>
                     </Style>
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="5*"></ColumnDefinition>
-                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" ></RowDefinition>
-                    <RowDefinition Height="Auto" ></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" FontSize="15" Margin="10, 10,0,0">Open Date</Label>
-                <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding OpenDate, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0"></DatePicker>
+                <Label Grid.Row="0" Grid.Column="0" FontSize="15" Margin="10, 10,0,0" Content="Open Date"/>
+                <mah:DateTimePicker Grid.Row="0" Grid.Column="1" SelectedDateTime="{Binding OpenDate, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" mah:ScrollViewerHelper.IsHorizontalScrollWheelEnabled="True" Culture="it-IT"/>
+                                
+                <Label Grid.Row="1" Grid.Column="0" FontSize="15" Margin="10, 10,0,0" Content="Close Date"/>
+                <mah:DateTimePicker Grid.Row="1" Grid.Column="1" SelectedDateTime="{Binding CloseDate, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" Culture="it-IT"/>
 
-                <Label Grid.Row="1" Grid.Column="0" FontSize="15" Margin="10, 10,0,0">Close Date</Label>
-                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding CloseDate, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0"></DatePicker>
+                <Label Grid.Row="2" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="P and L"/>
+                <mah:NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding PL, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" NumericInputMode="Decimal" TextAlignment="Left"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Margin="10, 10,0,0" FontSize="15">P and L</Label>
-                <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding PL, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{##.##}'}" FontSize="15" Margin="0, 10,0,0"></TextBox>
+                <Label Grid.Row="3" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="CapitalAT"/>
+                <Label Grid.Row="3" Grid.Column="1" Margin="0, 10,0,0" FontSize="15" Content="{Binding CapitalAT}"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Margin="10, 10,0,0" FontSize="15">CapitalAT</Label>
-                <Label Grid.Row="3" Grid.Column="1" Margin="0, 10,0,0" FontSize="15" Content="{Binding CapitalAT}"></Label>
+                <Label Grid.Row="4" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="CapitalDT"/>
+                <Label Grid.Row="4" Grid.Column="1" Margin="0, 10,0,0" FontSize="15" Content="{Binding CapitalDT}"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Margin="10, 10,0,0" FontSize="15">CapitalDT</Label>
-                <Label Grid.Row="4" Grid.Column="1" Margin="0, 10,0,0" FontSize="15" Content="{Binding CapitalDT}"></Label>
+                <Label Grid.Row="5" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Categoria"/>
+                <ComboBox Grid.Row="5" Grid.Column="1" Margin="0, 10,0,0" IsEditable="True" ItemsSource="{Binding Categories}" DisplayMemberPath="Description" SelectedValue="{Binding Category}" Text="{Binding CategoryText}"/>
+                <Button  Grid.Row="5" Grid.Column="2" Width="50" Padding="0, 0" Margin=" 10, 10,0,0" HorizontalAlignment="Left" FontSize="20" Command="{Binding AddCategory}" Content="+"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Margin="10, 10,0,0" FontSize="15">Categoria</Label>
-                <ComboBox Grid.Row="5" Grid.Column="1" Margin="0, 10,0,0" IsEditable="True" ItemsSource="{Binding Path=Categories}" DisplayMemberPath="Description" SelectedValue="{Binding Path=Category}" Text="{Binding CategoryText}"></ComboBox>
-                <Button  Grid.Row="5" Grid.Column="2" Width="50" Padding="0, 0" Margin=" 10, 10,0,0" HorizontalAlignment="Left" FontSize="20" Command="{Binding AddCategory}">+</Button>
+                <Label Grid.Row="6" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Strumento"/>
+                <ComboBox Grid.Row="6" Grid.Column="1" Margin="0, 10,0,0" IsEditable="True" ItemsSource="{Binding Tools}" DisplayMemberPath="Description" SelectedValue="{Binding Tool}" Text="{Binding ToolText}"/>
+                <Button  Grid.Row="6" Grid.Column="2" Width="50" Padding="0, 0" Margin=" 10, 10,0,0" HorizontalAlignment="Left" FontSize="20" Command="{Binding AddTool}" Content="+"/>
 
-                <Label Grid.Row="6" Grid.Column="0" Margin="10, 10,0,0" FontSize="15">Strumento</Label>
-                <ComboBox Grid.Row="6" Grid.Column="1" Margin="0, 10,0,0" IsEditable="True" ItemsSource="{Binding Path=Tools}" DisplayMemberPath="Description" SelectedValue="{Binding Path=Tool}" Text="{Binding ToolText}"></ComboBox>
-                <Button  Grid.Row="6" Grid.Column="2" Width="50" Padding="0, 0" Margin=" 10, 10,0,0" HorizontalAlignment="Left" FontSize="20" Command="{Binding AddTool}">+</Button>
+                <Label Grid.Row="7" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Size"/>
+                <mah:NumericUpDown Grid.Row="7" Grid.Column="1" Value="{Binding Size, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" Speedup="False" NumericInputMode="Decimal" ParsingNumberStyle="Any" TextAlignment="Left" />
 
-                <Label Grid.Row="7" Grid.Column="0" Margin="10, 10,0,0" FontSize="15">Size</Label>
-                <TextBox Grid.Row="7" Grid.Column="1"  Text="{Binding Size, UpdateSourceTrigger=PropertyChanged, StringFormat='{}{##.##}'}" FontSize="15" Margin="0, 10,0,0"></TextBox>
+                <Label Grid.Row="8" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Pos"/>
+                <ComboBox Grid.Row="8" Grid.Column="1" Margin="0, 10,0,0" IsEditable="false" ItemsSource="{Binding PosList, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Description" SelectedValue="{Binding Pos}" />
 
-                <Label Grid.Row="8" Grid.Column="0" Margin="10, 10,0,0" FontSize="15">Pos</Label>
-                <ComboBox Grid.Row="8" Grid.Column="1" Margin="0, 10,0,0" IsEditable="false" ItemsSource="{Binding Path=PosList}" DisplayMemberPath="Description" SelectedValue="{Binding Path=Pos}" ></ComboBox>
-
-                <Label Grid.Row="9" Grid.Column="0" Margin="10, 10,0,0" FontSize="15">Note</Label>
+                <Label Grid.Row="9" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Note"/>
                 <TextBox
                     Height="250"
                     VerticalScrollBarVisibility="Visible"
                     TextWrapping="Wrap"
                     AcceptsReturn="True"                    
-                    Grid.Row="9" Grid.Column="1"  Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="0, 10,0,0"></TextBox>
+                    Grid.Row="9" Grid.Column="1"  Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="0, 10,0,0"/>
+                <Button Grid.Row="10" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="150" Height="35" Margin="20, 10, 2, 2" Command="{Binding AddOperation}" Content="Aggiungi"/>
             </Grid>
         </ScrollViewer>
-        <Button Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="150" Height="35" Margin="10, 2, 2, 2" Command="{Binding AddOperation}">Aggiungi</Button>
+
     </Grid>
 </Page>

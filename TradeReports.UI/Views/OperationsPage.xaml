@@ -8,54 +8,57 @@
     xmlns:properties="clr-namespace:TradeReports.UI.Properties"
     mc:Ignorable="d"
     d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
-        <Button
-            Command="{Binding AddOperation}">
-            Aggiungi Operazione
-        </Button>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="48" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBlock
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="11*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <TextBlock
             Style="{StaticResource PageTitleStyle}"
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.OperationsPageTitle}" />
-            <Grid Grid.Row="1">
-                <DataGrid
+
+        <Button
+            Height="30"
+            HorizontalAlignment="Right"
+            FontSize="12"            
+            Command="{Binding AddOperation}"
+            Padding="10, 2, 10, 2"
+            Margin="0, 0, 20,0">
+            + Nuova Operazione
+        </Button>
+        <Grid Grid.Row="1">
+            <DataGrid
                 AutoGenerateColumns="False"
                 GridLinesVisibility="Horizontal"
                 CanUserAddRows="False"
                 ItemsSource="{Binding Source}"
                 Margin="10,10,14,-10"
                 KeyboardNavigation.TabNavigation="Once">
-                    <DataGrid.Columns>
-                        <!--
+                <DataGrid.Columns>
+                    <!--
                         TODO WTS:
                         Remove this column definitions and define columns for your data.
                         Consider adding header properties to Resources.resw
                     -->
-                        <DataGridTextColumn Binding="{Binding Id}" Header="OpID" />
-                        <DataGridTextColumn Binding="{Binding OpenDate}" Header="OpenDate" />
-                        <DataGridTextColumn Binding="{Binding CloseDate}" Header="CloseDate" />
-                        <DataGridTextColumn Binding="{Binding CloseDate}" Header="CloseDate" />
-                        <DataGridTextColumn Binding="{Binding Day}" Header="Day" />
-                        <DataGridTextColumn Binding="{Binding GapHour}" Header="Gap H" />
-                        <DataGridTextColumn Binding="{Binding TradeNumber}" Header="N. Trade Tot." />
-                        <DataGridTextColumn Binding="{Binding MonthTradeNumber}" Header="N. Trade M." />
-                        <DataGridTextColumn Binding="{Binding CapitalAT}" Header="CapitalAT" />
-                        <DataGridTextColumn Binding="{Binding CapitalDT}" Header="CapitalDT" />
-                        <DataGridTextColumn Binding="{Binding PL}" Header="PL" />
-                        <DataGridTextColumn Binding="{Binding Pos.Description}" Header="Pos" />
-                        <DataGridTextColumn Binding="{Binding Size}" Header="Size" />
-                        <DataGridTextColumn Binding="{Binding Category.Description}" Header="Categoria" />
-                        <DataGridTextColumn Binding="{Binding Tool.Description}" Header="Strumento" />
-                        <DataGridTextColumn Binding="{Binding Note}" Header="Note" />
+                    <DataGridTextColumn Binding="{Binding OpenDate}" Header="OpenDate" />
+                    <DataGridTextColumn Binding="{Binding CloseDate}" Header="CloseDate" />
+                    <DataGridTextColumn Binding="{Binding Day}" Header="Day" />
+                    <DataGridTextColumn Binding="{Binding GapHour}" Header="Gap H" />
+                    <DataGridTextColumn Binding="{Binding TradeNumber}" Header="N. Trade Tot." />
+                    <DataGridTextColumn Binding="{Binding MonthTradeNumber}" Header="N. Trade M." />
+                    <DataGridTextColumn Binding="{Binding CapitalAT}" Header="CapitalAT" />
+                    <DataGridTextColumn Binding="{Binding CapitalDT}" Header="CapitalDT" />
+                    <DataGridTextColumn Binding="{Binding PL}" Header="PL" />
+                    <DataGridTextColumn Binding="{Binding Pos.Description}" Header="Pos" />
+                    <DataGridTextColumn Binding="{Binding Size}" Header="Size" />
+                    <DataGridTextColumn Binding="{Binding Category.Description}" Header="Categoria" />
+                    <DataGridTextColumn Binding="{Binding Tool.Description}" Header="Strumento" />
+                    <DataGridTextColumn Binding="{Binding Note}" Header="Note" />
 
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
-    </StackPanel>
+    </Grid>
 </Page>

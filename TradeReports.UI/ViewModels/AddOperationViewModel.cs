@@ -3,8 +3,10 @@ using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TradeReports.Core.Interfaces;
@@ -17,20 +19,32 @@ namespace TradeReports.UI.ViewModels
 {
     public class AddOperationViewModel : ObservableObject, INavigationAware
     {
+        #region Private Fields
         private AddOperationParams _operation = new AddOperationParams();
-        private decimal _capitalDT;
+        private decimal? _capitalDT;
         private string _categoryText;
         private string _toolText;
 
         private RelayCommand _addCategory;
         private RelayCommand _addTool;
         private RelayCommand _addOperation;
-
+        private DateTime? _openDate;
+        private DateTime? _closeDate;
+        private decimal? _pl;
+        private decimal? _capitalAT;
+        private float? _size;
+        private string _note;
+        private Category _category;
+        private Tool _tool;
+        private Pos _pos;
         private readonly ICapitalServiceAsync _capitalService;
         private readonly ICategoryServiceAsync _categoryService;
         private readonly IPosServiceAsync _posService;
         private readonly IOperationsServiceAsync _operationService;
         private readonly INavigationService _navigationService;
+        #endregion
+
+        #region Constructors
         public AddOperationViewModel(ICapitalServiceAsync capitalService, 
             ICategoryServiceAsync categoryService, 
             IPosServiceAsync posService, 
@@ -43,49 +57,54 @@ namespace TradeReports.UI.ViewModels
             _operationService = operationsService;
             _navigationService = navigationService;
         }
+        #endregion
 
-        public DateTime OpenDate
+        #region Property Binding
+        [Required]
+        public DateTime? OpenDate
         {
-            get => _operation.OpenDate;
+            get => _openDate;
             set
             {
-                _operation.OpenDate = value;
+                _openDate = value;
                 OnPropertyChanged(nameof(OpenDate));
+                (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
 
-        public DateTime CloseDate
+        public DateTime? CloseDate
         {
-            get => _operation.CloseDate;
+            get => _closeDate;
             set
             {
-                _operation.CloseDate = value;
+                _closeDate = value;
                 OnPropertyChanged(nameof(CloseDate));
+                (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
 
-        public decimal PL
+        public decimal? PL
         {
-            get => _operation.PL;
+            get => _pl;
             set
             {
-                _operation.PL = value;
+                SetProperty(ref _pl, value);
                 CapitalDT = CapitalAT + PL;
-                OnPropertyChanged(nameof(PL));
+                (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
 
-        public decimal CapitalAT
+        public decimal? CapitalAT
         {
-            get => _operation.CapitalAT;
+            get => _capitalAT;
             set
             {
-                _operation.CapitalAT = value;
+                _capitalAT = value;
                 OnPropertyChanged();
             }
         }
 
-        public decimal CapitalDT
+        public decimal? CapitalDT
         {
             get => _capitalDT;
             set
@@ -93,55 +112,56 @@ namespace TradeReports.UI.ViewModels
                 SetProperty(ref _capitalDT, value);
             }
         }
-        public float Size
+        public float? Size
         {
-            get => _operation.Size;
+            get => _size;
             set
             {
-                _operation.Size = value;
+                _size = value;
                 OnPropertyChanged();
+                (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
         public string Note
         {
-            get => _operation.Note;
+            get => _note;
             set
             {
-                _operation.Note = value;
+                _note = value;
                 OnPropertyChanged();
             }
         }
-
-        public ObservableCollection<Category> Categories { get; set; } = new ObservableCollection<Category>();
-        public ObservableCollection<Tool> Tools { get; } = new ObservableCollection<Tool>();
-        public ObservableCollection<Pos> PosList { get; } = new ObservableCollection<Pos>();
 
         public Category Category
         {
-            get => _operation.Category;
+            get => _category;
             set
             {
-                _operation.Category = value;
+                _category = value;
                 OnPropertyChanged();
                 RefreshTools();
+                (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
+
         public Tool Tool
         {
-            get => _operation.Tool;
+            get => _tool;
             set
             {
-                _operation.Tool = value;
+                _tool = value;
                 OnPropertyChanged();
+                (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
         public Pos Pos
         {
-            get => _operation.Pos;
+            get => _pos;
             set
             {
-                _operation.Pos = value;
+                _pos = value;
                 OnPropertyChanged();
+                (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
 
@@ -162,25 +182,69 @@ namespace TradeReports.UI.ViewModels
             }
         }
 
+        #endregion
+
+        #region Observable Lists
+
+        public ObservableCollection<Category> Categories { get; set; } = new ObservableCollection<Category>();
+        public ObservableCollection<Tool> Tools { get; } = new ObservableCollection<Tool>();
+        public ObservableCollection<Pos> PosList { get; } = new ObservableCollection<Pos>();
+
+        #endregion
+
+        #region Commands
 
         public ICommand AddCategory => _addCategory ?? (_addCategory = new RelayCommand(AddCategoryInvoked)); 
         public ICommand AddTool => _addTool ?? (_addTool = new RelayCommand(AddToolInvoked));
-        public ICommand AddOperation => _addOperation ?? (_addOperation = new RelayCommand(AddOperationInvoked));
+        public ICommand AddOperation => _addOperation ?? (_addOperation = new RelayCommand(AddOperationInvoked, CanAddOperation));
 
-        public void OnNavigatedFrom()
+        private async void AddCategoryInvoked()
         {
-        }
-
-        public async void OnNavigatedTo(object parameter)
-        {
-            Capital capital = await _capitalService.GetLastCapital();
-
-            CapitalAT = capital.Amount;
+            if(Category is null && !string.IsNullOrEmpty(CategoryText))
+                Category = await _categoryService.AddCategory(CategoryText);
 
             await RefreshCategories();
-
-            await RefreshPos();
         }
+        private async void AddToolInvoked()
+        {
+            if(Category != null && Tool is null && !string.IsNullOrEmpty(ToolText))
+                Tool = await _categoryService.AddTool(Category.Id, ToolText);
+
+            RefreshTools();
+        }
+
+        private async void AddOperationInvoked()
+        {
+            _operation = new AddOperationParams { 
+                OpenDate = OpenDate.Value,
+                CloseDate = CloseDate.Value,
+                CapitalAT = CapitalAT.Value,
+                PL = PL.Value,
+                Pos = Pos,
+                Category = Category,
+                Tool = Tool,
+                Note = Note,
+                Size = Size.Value
+            };
+
+            await _operationService.AddGridDataAsync(_operation);
+            _navigationService.GoBack();
+        }
+
+        private bool CanAddOperation()
+        {
+            return Category != null
+                && Pos != null
+                && Tool != null
+                && OpenDate.HasValue
+                && CloseDate.HasValue
+                && PL.HasValue
+                && Size.HasValue;
+        }
+
+        #endregion
+
+        #region Private Methods
 
         private async Task RefreshCategories()
         {
@@ -209,7 +273,6 @@ namespace TradeReports.UI.ViewModels
                 Tools.Add(tool);
             }
         }
-
         private async Task RefreshPos()
         {
             PosList.Clear();
@@ -222,26 +285,25 @@ namespace TradeReports.UI.ViewModels
             }
         }
 
-        private async void AddCategoryInvoked()
+        #endregion
+
+        #region INavigationAware Implementation
+
+        public void OnNavigatedFrom()
         {
-            if(Category is null && !string.IsNullOrEmpty(CategoryText))
-                Category = await _categoryService.AddCategory(CategoryText);
+        }
+
+        public async void OnNavigatedTo(object parameter)
+        {
+            Capital capital = await _capitalService.GetLastCapital();
+
+            CapitalAT = capital.Amount;
 
             await RefreshCategories();
-        }
-        private async void AddToolInvoked()
-        {
-            if(Tool is null && !string.IsNullOrEmpty(ToolText))
-                Tool = await _categoryService.AddTool(Category.Id, ToolText);
 
-            RefreshTools();
+            await RefreshPos();
         }
 
-        private async void AddOperationInvoked()
-        {
-            await _operationService.AddGridDataAsync(_operation);
-            _navigationService.GoBack();
-        }
-
+        #endregion
     }
 }
