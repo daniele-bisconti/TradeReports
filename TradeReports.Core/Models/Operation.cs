@@ -26,7 +26,7 @@ namespace TradeReports.Core.Models
 
             Id = new Guid();
             Day = CloseDate.DayOfWeek.ToString().Substring(0, 3);
-            GapHour = (closeDate - openDate).TotalHours;
+            GapMinutes = (closeDate - openDate).TotalMinutes;
             CapitalDT = CapitalAT + PL;
         }
 
@@ -39,7 +39,7 @@ namespace TradeReports.Core.Models
         public DateTime OpenDate { get; set; }
         public DateTime CloseDate { get; set; }
         public string Day { get; set; }
-        public double GapHour { get; set; }
+        public double GapMinutes { get; set; }
         public int TradeNumber { get; set; }
         public int MonthTradeNumber { get; set; }
         public decimal CapitalAT { get; set; }

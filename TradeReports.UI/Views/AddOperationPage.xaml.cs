@@ -26,25 +26,5 @@ namespace TradeReports.UI.Views
             DataContext = viewModel;
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-        }
-
-        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            KeyConverter kc = new KeyConverter();
-            char c = kc.ConvertToString(e.Key).ToCharArray()[0];
-
-            if (e.Key == Key.Space)
-            {
-                e.Handled = true;
-            }
-            if (char.IsLetter(c) && c != '.' )
-            {
-                e.Handled = true;
-            }
-
-            base.OnPreviewKeyDown(e);
-        }
     }
 }

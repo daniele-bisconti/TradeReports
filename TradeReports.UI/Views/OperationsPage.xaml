@@ -45,7 +45,7 @@
                     <DataGridTextColumn Binding="{Binding OpenDate}" Header="OpenDate" />
                     <DataGridTextColumn Binding="{Binding CloseDate}" Header="CloseDate" />
                     <DataGridTextColumn Binding="{Binding Day}" Header="Day" />
-                    <DataGridTextColumn Binding="{Binding GapHour}" Header="Gap H" />
+                    <DataGridTextColumn Binding="{Binding GapMinutes}" Header="Gap M" />
                     <DataGridTextColumn Binding="{Binding TradeNumber}" Header="N. Trade Tot." />
                     <DataGridTextColumn Binding="{Binding MonthTradeNumber}" Header="N. Trade M." />
                     <DataGridTextColumn Binding="{Binding CapitalAT}" Header="CapitalAT" />

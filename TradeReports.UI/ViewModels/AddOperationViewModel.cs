@@ -22,6 +22,7 @@ namespace TradeReports.UI.ViewModels
         #region Private Fields
         private AddOperationParams _operation = new AddOperationParams();
         private decimal? _capitalDT;
+
         private string _categoryText;
         private string _toolText;
 
@@ -37,6 +38,7 @@ namespace TradeReports.UI.ViewModels
         private Category _category;
         private Tool _tool;
         private Pos _pos;
+
         private readonly ICapitalServiceAsync _capitalService;
         private readonly ICategoryServiceAsync _categoryService;
         private readonly IPosServiceAsync _posService;
