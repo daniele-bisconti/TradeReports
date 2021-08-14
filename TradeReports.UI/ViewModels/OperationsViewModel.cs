@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -21,7 +23,18 @@ namespace TradeReports.UI.ViewModels
         private readonly INavigationService _navigationService;
 
         private RelayCommand _addOperation;
+        private RelayCommand _deleteOperation;
+
         public ObservableCollection<Operation> Source { get; } = new ObservableCollection<Operation>();
+
+        private Operation _selectedOperation;
+
+        public Operation SelectedOperation
+        {
+            get { return _selectedOperation; }
+            set { _selectedOperation = value; }
+        }
+
 
         public OperationsViewModel(IOperationsServiceAsync dataService, INavigationService navigationService)
         {
@@ -30,6 +43,11 @@ namespace TradeReports.UI.ViewModels
         }
 
         public async void OnNavigatedTo(object parameter)
+        {
+            await RefreshOperationsList();
+        }
+
+        private async Task RefreshOperationsList()
         {
             Source.Clear();
 
@@ -47,8 +65,23 @@ namespace TradeReports.UI.ViewModels
         }
 
         public ICommand AddOperation => _addOperation ?? (_addOperation = new RelayCommand(OnAddOperationInvoked));
+        public ICommand DeleteOperation => _deleteOperation ?? (_deleteOperation = new RelayCommand(OnDeleteOperationInvoked));
 
         private void OnAddOperationInvoked()
             => _navigationService.NavigateTo(typeof(AddOperationViewModel).FullName);
+
+        private async void OnDeleteOperationInvoked()
+        {
+            Operation selected = SelectedOperation;
+            try
+            {
+                await _dataService.DeleteOperationAsync(selected.Id.ToString());
+                await RefreshOperationsList();
+            }
+            catch(ArgumentException e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+        }
     }
 }

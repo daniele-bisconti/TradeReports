@@ -24,7 +24,7 @@ namespace TradeReports.Core.Services
             _categoryService = categoryServiceAsync;
         }
 
-        public async Task<bool> AddGridDataAsync(AddOperationParams operationParams)
+        public async Task<bool> AddGridDataAsync(OperationParams operationParams)
         {
             Operation operation = new Operation(
                 operationParams.OpenDate,
@@ -50,6 +50,33 @@ namespace TradeReports.Core.Services
             await _context.SaveChangesAsync();
 
             return entity.Entity != null;
+        }
+
+        public async Task DeleteOperationAsync(string id)
+        {
+            Operation operation = await _context.Operations.FindAsync(Guid.Parse(id));
+
+            if (operation != null)
+            {
+                _context.Operations.Remove(operation);
+
+                // Update TradeNumber of other operations
+                List<Operation> operations = _context.Operations
+                    .Where(o => o.TradeNumber > operation.TradeNumber).ToList();
+
+                operations.ForEach(o => o.TradeNumber--);
+
+                // Update MonthTradeNumber of other operation
+                operations = _context.Operations
+                    .Where(o => o.CloseDate.Month == operation.CloseDate.Month && o.MonthTradeNumber > operation.MonthTradeNumber)
+                    .ToList();
+
+                operations.ForEach(o => o.MonthTradeNumber--);
+
+                await _context.SaveChangesAsync();
+            }
+            else
+                throw new ArgumentException($"No operation with id: {id} ");
         }
 
         public async Task<IEnumerable<Operation>> GetGridDataAsync()

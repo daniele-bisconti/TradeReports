@@ -36,13 +36,15 @@
                 ItemsSource="{Binding Source}"
                 Margin="10,10,14,-10"
                 KeyboardNavigation.TabNavigation="Once"
-                IsReadOnly="True">
+                IsReadOnly="True"
+                SelectedItem="{Binding SelectedOperation}">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Cancella Operazione" Command="{Binding DeleteOperation}" ></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
-                    <!--
-                        TODO WTS:
-                        Remove this column definitions and define columns for your data.
-                        Consider adding header properties to Resources.resw
-                    -->
+                    
                     <DataGridTextColumn Binding="{Binding OpenDate}" Header="OpenDate"/>
                     <DataGridTextColumn Binding="{Binding CloseDate}" Header="CloseDate" />
                     <DataGridTextColumn Binding="{Binding Day}" Header="Day" />

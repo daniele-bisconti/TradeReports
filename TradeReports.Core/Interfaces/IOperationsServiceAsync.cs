@@ -12,6 +12,8 @@ namespace TradeReports.Core.Interfaces
     {
         Task<IEnumerable<Operation>> GetGridDataAsync();
 
-        Task<bool> AddGridDataAsync(AddOperationParams operationParams);
+        Task<bool> AddGridDataAsync(OperationParams operationParams);
+
+        Task DeleteOperationAsync(string id);
     }
 }

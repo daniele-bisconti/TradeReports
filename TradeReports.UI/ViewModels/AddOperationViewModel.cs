@@ -20,7 +20,7 @@ namespace TradeReports.UI.ViewModels
     public class AddOperationViewModel : ObservableObject, INavigationAware
     {
         #region Private Fields
-        private AddOperationParams _operation = new AddOperationParams();
+        private OperationParams _operation = new OperationParams();
         private decimal? _capitalDT;
 
         private string _categoryText;
@@ -217,7 +217,7 @@ namespace TradeReports.UI.ViewModels
 
         private async void AddOperationInvoked()
         {
-            _operation = new AddOperationParams { 
+            _operation = new OperationParams { 
                 OpenDate = OpenDate.Value,
                 CloseDate = CloseDate.Value,
                 CapitalAT = CapitalAT.Value,

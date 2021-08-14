@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace TradeReports.Core.Models.Params
 {
-    public class AddOperationParams
+    /// <summary>
+    /// Rappresenta i parametri necessari alla creazione ed alla modifica
+    /// di un operazione
+    /// </summary>
+    public class OperationParams
     {
         public DateTime OpenDate { get; set; }
         public DateTime CloseDate { get; set; }
