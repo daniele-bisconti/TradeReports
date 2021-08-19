@@ -66,7 +66,7 @@ namespace TradeReports.UI
             // Activation Handlers
             services.AddDbContext<OperationContext>(options =>
             {
-                options.UseSqlite("Data Source=OperationsDB.db;");
+                options.UseSqlite(@"Data Source=C:\Users\bisco\OneDrive\Documenti\BSCCoding\TradeReports\TradeReports.UI\bin\Debug\netcoreapp3.1\OperationsDB.db;");
                 options.UseLazyLoadingProxies();
             }
             );
@@ -80,7 +80,7 @@ namespace TradeReports.UI
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ICategoryServiceAsync, CategoryServiceAsync>();
             services.AddSingleton<IPosServiceAsync, PosServiceAsync>();
-            services.AddSingleton<ICapitalServiceAsync, CapitalServiceAsync>();
+            services.AddSingleton<ICapitalService, CapitalServiceAsync>();
 
             // Views and ViewModels
             services.AddTransient<IShellWindow, ShellWindow>();

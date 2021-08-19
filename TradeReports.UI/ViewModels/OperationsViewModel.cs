@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
@@ -21,6 +23,7 @@ namespace TradeReports.UI.ViewModels
     {
         private readonly IOperationsServiceAsync _dataService;
         private readonly INavigationService _navigationService;
+        private readonly IDialogCoordinator _dialogCoordinator;
 
         private RelayCommand _addOperation;
         private RelayCommand _deleteOperation;
@@ -35,11 +38,11 @@ namespace TradeReports.UI.ViewModels
             set { _selectedOperation = value; }
         }
 
-
         public OperationsViewModel(IOperationsServiceAsync dataService, INavigationService navigationService)
         {
             _dataService = dataService;
             _navigationService = navigationService;
+            _dialogCoordinator = DialogCoordinator.Instance;
         }
 
         public async void OnNavigatedTo(object parameter)
@@ -53,6 +56,7 @@ namespace TradeReports.UI.ViewModels
 
             // Replace this with your actual data
             var data = await _dataService.GetGridDataAsync();
+            data.OrderBy(o => o.CloseDate);
 
             foreach (var item in data)
             {
@@ -75,8 +79,13 @@ namespace TradeReports.UI.ViewModels
             Operation selected = SelectedOperation;
             try
             {
-                await _dataService.DeleteOperationAsync(selected.Id.ToString());
-                await RefreshOperationsList();
+                MessageDialogResult result = await _dialogCoordinator.ShowMessageAsync(this, "Conferma eliminazione", $"Eliminare l'operazione aperta il: {selected.OpenDate} e chiusa il: {selected.CloseDate}", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    await _dataService.DeleteOperationAsync(selected.Id.ToString());
+                    await RefreshOperationsList();
+                }
             }
             catch(ArgumentException e)
             {

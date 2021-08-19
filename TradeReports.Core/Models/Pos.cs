@@ -12,5 +12,17 @@ namespace TradeReports.Core.Models
     {
         public int Id { get; set; }
         public PosType Description { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Pos pos &&
+                   Id == pos.Id &&
+                   Description == pos.Description;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Description);
+        }
     }
 }

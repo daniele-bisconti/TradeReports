@@ -15,7 +15,6 @@ namespace TradeReports.Core.Repository
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tool> Tools { get; set; }
         public DbSet<Pos> Pos { get; set; }
-        public DbSet<Capital> Capital { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

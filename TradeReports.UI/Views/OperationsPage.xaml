@@ -7,7 +7,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:TradeReports.UI.Properties"
     mc:Ignorable="d"
-    d:DesignHeight="450" d:DesignWidth="800">
+    d:DesignHeight="450" d:DesignWidth="800"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:Converters="clr-namespace:TradeReports.UI.Converters"
+    Dialog:DialogParticipation.Register="{Binding}">
+
+    <Page.Resources>
+        <Converters:PLToBrushConverter x:Key="plToBrushConverter"></Converters:PLToBrushConverter>
+        <Converters:PosToBrushConverter x:Key="PosToBrushConverter"></Converters:PosToBrushConverter>
+        <Converters:FirstTenCharactersConverter x:Key="FirstTenCharactersConverter"></Converters:FirstTenCharactersConverter>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
@@ -37,28 +48,58 @@
                 Margin="10,10,14,-10"
                 KeyboardNavigation.TabNavigation="Once"
                 IsReadOnly="True"
-                SelectedItem="{Binding SelectedOperation}">
+                SelectedItem="{Binding SelectedOperation}"
+                SelectionMode="Single"
+                Style="{StaticResource MahApps.Styles.DataGrid.Azure}"
+                FontSize="14px">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Cancella Operazione" Command="{Binding DeleteOperation}" ></MenuItem>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
-                    
-                    <DataGridTextColumn Binding="{Binding OpenDate}" Header="OpenDate"/>
-                    <DataGridTextColumn Binding="{Binding CloseDate}" Header="CloseDate" />
+                    <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden" />
+                    <DataGridTextColumn Binding="{Binding OpenDate, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}" Header="OpenDate"/>
+                    <DataGridTextColumn Binding="{Binding CloseDate, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}" Header="CloseDate"/>
                     <DataGridTextColumn Binding="{Binding Day}" Header="Day" />
                     <DataGridTextColumn Binding="{Binding GapMinutes}" Header="Gap M" />
-                    <DataGridTextColumn Binding="{Binding TradeNumber}" Header="N. Trade Tot." />
+                    <DataGridTextColumn Binding="{Binding TradeNumber}" Header="N. Trade Tot." SortDirection="Ascending"/>
                     <DataGridTextColumn Binding="{Binding MonthTradeNumber}" Header="N. Trade M." />
-                    <DataGridTextColumn Binding="{Binding CapitalAT}" Header="CapitalAT" />
-                    <DataGridTextColumn Binding="{Binding CapitalDT}" Header="CapitalDT" />
-                    <DataGridTextColumn Binding="{Binding PL}" Header="PL" />
-                    <DataGridTextColumn Binding="{Binding Pos.Description}" Header="Pos" />
+                    <DataGridTextColumn Binding="{Binding CapitalAT}" Header="Capital AT" />
+                    <DataGridTextColumn Binding="{Binding CapitalDT}" Header="Capital DT" />
+                    <DataGridTextColumn Binding="{Binding PL}" Header="PL" FontWeight="Bold">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background" Value="{Binding PL, Converter={StaticResource plToBrushConverter}}"/>
+                                <Setter Property="Padding" Value="3, 2, 3, 2"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Pos.Description}" Header="Pos" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Background" Value="{Binding Pos, Converter={StaticResource PosToBrushConverter}}"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Size}" Header="Size" />
                     <DataGridTextColumn Binding="{Binding Category.Description}" Header="Categoria" />
                     <DataGridTextColumn Binding="{Binding Tool.Description}" Header="Strumento" />
-                    <DataGridTextColumn Binding="{Binding Note}" Header="Note" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.Header>
+                            Note
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Expander Content="{Binding Note}" Header="{Binding Note, Converter={StaticResource FirstTenCharactersConverter}}" ></Expander>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Note}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
                 </DataGrid.Columns>
             </DataGrid>

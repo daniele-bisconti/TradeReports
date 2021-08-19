@@ -8,7 +8,7 @@ namespace TradeReports.Core.Models
 {
     public enum PosType
     {
-        Long,
-        Short
+        Long = 1,
+        Short = 2
     }
 }

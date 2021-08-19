@@ -7,8 +7,10 @@ using TradeReports.Core.Models;
 
 namespace TradeReports.Core.Interfaces
 {
-    public interface ICapitalServiceAsync
+    public interface ICapitalService
     {
-        Task<Capital> GetLastCapital();
+        decimal GetLastCapital();
+
+        decimal GetCapitalByDate(DateTime date);
     }
 }

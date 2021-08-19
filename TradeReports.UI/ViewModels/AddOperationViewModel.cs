@@ -37,9 +37,9 @@ namespace TradeReports.UI.ViewModels
         private string _note;
         private Category _category;
         private Tool _tool;
-        private Pos _pos;
+        private PosType _pos;
 
-        private readonly ICapitalServiceAsync _capitalService;
+        private readonly ICapitalService _capitalService;
         private readonly ICategoryServiceAsync _categoryService;
         private readonly IPosServiceAsync _posService;
         private readonly IOperationsServiceAsync _operationService;
@@ -47,7 +47,7 @@ namespace TradeReports.UI.ViewModels
         #endregion
 
         #region Constructors
-        public AddOperationViewModel(ICapitalServiceAsync capitalService, 
+        public AddOperationViewModel(ICapitalService capitalService, 
             ICategoryServiceAsync categoryService, 
             IPosServiceAsync posService, 
             IOperationsServiceAsync operationsService,
@@ -80,6 +80,7 @@ namespace TradeReports.UI.ViewModels
             set
             {
                 _closeDate = value;
+                CapitalAT = value.HasValue ? _capitalService.GetCapitalByDate(value.Value) : _capitalService.GetLastCapital();
                 OnPropertyChanged(nameof(CloseDate));
                 (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
@@ -156,7 +157,7 @@ namespace TradeReports.UI.ViewModels
                 (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
-        public Pos Pos
+        public PosType Pos
         {
             get => _pos;
             set
@@ -217,26 +218,27 @@ namespace TradeReports.UI.ViewModels
 
         private async void AddOperationInvoked()
         {
+            Pos pos = PosList.FirstOrDefault(p => p.Id == (int)_pos);
+
             _operation = new OperationParams { 
                 OpenDate = OpenDate.Value,
                 CloseDate = CloseDate.Value,
                 CapitalAT = CapitalAT.Value,
                 PL = PL.Value,
-                Pos = Pos,
+                Pos = pos,
                 Category = Category,
                 Tool = Tool,
                 Note = Note,
                 Size = Size.Value
             };
 
-            await _operationService.AddGridDataAsync(_operation);
+            await _operationService.AddOperationAsync(_operation);
             _navigationService.GoBack();
         }
 
         private bool CanAddOperation()
         {
             return Category != null
-                && Pos != null
                 && Tool != null
                 && OpenDate.HasValue
                 && CloseDate.HasValue
@@ -266,9 +268,9 @@ namespace TradeReports.UI.ViewModels
         {
             Tools.Clear();
 
-            if (Category is null) return;
-
             ToolText = string.Empty;
+
+            if (Category is null) return;
 
             foreach (var tool in Category.Tools)
             {
@@ -297,9 +299,11 @@ namespace TradeReports.UI.ViewModels
 
         public async void OnNavigatedTo(object parameter)
         {
-            Capital capital = await _capitalService.GetLastCapital();
+            decimal capital = _capitalService.GetLastCapital();
 
-            CapitalAT = capital.Amount;
+            CapitalAT = capital;
+
+            Pos = PosType.Long;
 
             await RefreshCategories();
 

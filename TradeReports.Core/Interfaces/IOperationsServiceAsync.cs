@@ -12,8 +12,20 @@ namespace TradeReports.Core.Interfaces
     {
         Task<IEnumerable<Operation>> GetGridDataAsync();
 
-        Task<bool> AddGridDataAsync(OperationParams operationParams);
+        /// <summary>
+        /// Aggiunge una nuova operazione. Se sono presenti altre operazioni 
+        /// aggiorna i capitali delle operazioni successive
+        /// </summary>
+        /// <param name="operationParams">Parametri di creazione della nuova operazione</param>
+        /// <returns>True se l'operazione è stata inserita con successo</returns>
+        Task<bool> AddOperationAsync(OperationParams operationParams);
 
+        /// <summary>
+        /// Elimina una operazione dalla lista delle operaizoni.
+        /// Aggiorna il capitale delle operazione successive sottraendo il P&L dell'operazione
+        /// eliminata
+        /// </summary>
+        /// <param name="id">Id dell'operazione da eliminare</param>
         Task DeleteOperationAsync(string id);
     }
 }

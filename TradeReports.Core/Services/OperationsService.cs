@@ -24,28 +24,36 @@ namespace TradeReports.Core.Services
             _categoryService = categoryServiceAsync;
         }
 
-        public async Task<bool> AddGridDataAsync(OperationParams operationParams)
+        
+        public async Task<bool> AddOperationAsync(OperationParams operationParams)
         {
-            Operation operation = new Operation(
-                operationParams.OpenDate,
-                operationParams.CloseDate,
-                operationParams.TradeNumber,
-                operationParams.MonthTradeNumber,
-                operationParams.CapitalAT,
-                operationParams.PL,
-                operationParams.Pos,
-                operationParams.Size,
-                operationParams.Category,
-                operationParams.Tool,
-                operationParams.Note
-                );
+            Operation operation = CreateOperation(operationParams);
 
-            operation.TradeNumber = _context.Operations.Count() + 1;
-            operation.MonthTradeNumber = _context.Operations
-                .Where(o => o.CloseDate.Month == operation.CloseDate.Month && o.CloseDate.Year == operation.CloseDate.Year)
-                .Count() + 1;
+            // Calcola il tradenumber e il month trade number
+            SetTradeNumber(operation);
+            SetMonthTradeNumber(operation);
 
             var entity = await _context.Operations.AddAsync(operation);
+
+            // Update Tradenumber e MonthTradeNumber e capital delle altre operazioni
+            List<Operation> followingOps = _context.Operations
+                .Where(o => o.CloseDate > operation.CloseDate)
+                .OrderBy(o => o.CloseDate)
+                .ToList();
+
+            Operation prev = operation;
+
+            followingOps.ForEach(o =>
+            {
+                o.TradeNumber++;
+                o.CapitalAT = prev.CapitalDT;
+                o.CapitalDT = prev.CapitalDT + o.PL;
+                prev = o;
+            });
+
+            followingOps
+                .Where(o => o.CloseDate.Month == operation.CloseDate.Month && o.CloseDate.Year == operation.CloseDate.Year)
+                .ToList().ForEach(o => o.MonthTradeNumber++);
 
             await _context.SaveChangesAsync();
 
@@ -67,11 +75,17 @@ namespace TradeReports.Core.Services
                 operations.ForEach(o => o.TradeNumber--);
 
                 // Update MonthTradeNumber of other operation
-                operations = _context.Operations
+                _context.Operations
                     .Where(o => o.CloseDate.Month == operation.CloseDate.Month && o.MonthTradeNumber > operation.MonthTradeNumber)
-                    .ToList();
+                    .ToList()
+                    .ForEach(o => o.MonthTradeNumber--);
 
-                operations.ForEach(o => o.MonthTradeNumber--);
+                // Update Capital of following operations
+                operations.ForEach(o =>
+                {
+                    o.CapitalAT -= operation.PL;
+                    o.CapitalDT -= operation.PL;
+                });
 
                 await _context.SaveChangesAsync();
             }
@@ -85,5 +99,40 @@ namespace TradeReports.Core.Services
 
             return data;
         }
+
+        #region Private Methods
+
+        private static Operation CreateOperation(OperationParams operationParams)
+        {
+            return new Operation(
+                            operationParams.OpenDate,
+                            operationParams.CloseDate,
+                            operationParams.TradeNumber,
+                            operationParams.MonthTradeNumber,
+                            operationParams.CapitalAT,
+                            operationParams.PL,
+                            operationParams.Pos,
+                            operationParams.Size,
+                            operationParams.Category,
+                            operationParams.Tool,
+                            operationParams.Note
+                            );
+        }
+
+        private void SetTradeNumber(Operation operation)
+        {
+            operation.TradeNumber = _context.Operations.Where(o => o.CloseDate <= operation.CloseDate).Count() + 1;
+        }
+
+        private void SetMonthTradeNumber(Operation operation)
+        {
+            operation.MonthTradeNumber =
+                _context.Operations
+                .Where(o => o.CloseDate.Month == operation.CloseDate.Month && o.CloseDate.Year == operation.CloseDate.Year)
+                .Where(o => o.CloseDate <= operation.CloseDate)
+                .Count() + 1;
+        }
+
+        #endregion
     }
 }

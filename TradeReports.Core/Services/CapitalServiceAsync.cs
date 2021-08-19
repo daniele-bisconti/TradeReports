@@ -10,7 +10,7 @@ using TradeReports.Core.Repository;
 
 namespace TradeReports.Core.Services
 {
-    public class CapitalServiceAsync : ICapitalServiceAsync
+    public class CapitalServiceAsync : ICapitalService
     {
         private OperationContext _context;
 
@@ -18,14 +18,30 @@ namespace TradeReports.Core.Services
         {
             _context = context;
         }
-
-
-        public async Task<Capital> GetLastCapital()
+        
+        /// <summary>
+        /// Restituisce il Capital DT dell'operazione precedente alla data indicata, più vicina
+        /// </summary>
+        /// <param name="date">Data dalla quale recuperare il capitale</param>
+        /// <returns>Capitale</returns>
+        public decimal GetCapitalByDate(DateTime date)
         {
-            List<Capital> capitals = await _context.Capital.ToListAsync();
-            Capital max = capitals.OrderBy(c => c.Date).LastOrDefault();
+            Operation operation = _context.Operations
+                .Where(o => o.CloseDate <= date)
+                .OrderBy(o => o.CloseDate)
+                .LastOrDefault();
 
-            return max;
+            return operation != null ? operation.CapitalDT : 0;
         }
+
+        public decimal GetLastCapital()
+        {
+            Operation operation = _context.Operations
+                .OrderBy(o => o.CloseDate)
+                .LastOrDefault();
+
+            return operation != null ? operation.CapitalDT : 0;
+        }
+
     }
 }

@@ -30,5 +30,17 @@ namespace TradeReports.Core.Services
 
             return pos;
         }
+
+        /// <summary>
+        /// Crea un nuovo capitale sommando la cifra indicata al capitale precedente alla data indicata.
+        /// Se ci sono capitali successivi alla data indicata, somma anche ad essi il capitale iondicato
+        /// </summary>
+        /// <param name="amount">Cifra da sommare</param>
+        /// <param name="date">Data in cui il capitale è stato incrementato</param>
+        /// <returns></returns>
+        public async Task SumCapital(decimal amount, DateTime date)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
