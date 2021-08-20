@@ -25,7 +25,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TradeReports.Core\TradeReports.Core.csproj" />
-    <ProjectReference Include="..\TradeReports.UI.Core\TradeReports.UI.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

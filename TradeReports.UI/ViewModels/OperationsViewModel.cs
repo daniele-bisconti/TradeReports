@@ -14,8 +14,6 @@ using TradeReports.Core.Repository;
 using TradeReports.Core.Services;
 using TradeReports.UI.Contracts.Services;
 using TradeReports.UI.Contracts.ViewModels;
-using TradeReports.UI.Core.Contracts.Services;
-using TradeReports.UI.Core.Models;
 
 namespace TradeReports.UI.ViewModels
 {

@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeReports.Core", "TradeReports.Core\TradeReports.Core.csproj", "{2CBB4696-125D-4507-821B-C1372DD66770}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeReports.Core", "TradeReports.Core\TradeReports.Core.csproj", "{2CBB4696-125D-4507-821B-C1372DD66770}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeReports.UI", "TradeReports.UI\TradeReports.UI.csproj", "{7136C147-EBA9-4468-BD23-812EAFC5EF0B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeReports.UI.Core", "TradeReports.UI.Core\TradeReports.UI.Core.csproj", "{BBA55F65-E1FE-4493-86FF-F21D5054F04F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeReports.UI.Tests.MSTest", "TradeReports.UI.Tests.MSTest\TradeReports.UI.Tests.MSTest.csproj", "{A3968303-38CE-48D9-B17B-07E03B63B4A0}"
 EndProject
@@ -45,18 +43,6 @@ Global
 		{7136C147-EBA9-4468-BD23-812EAFC5EF0B}.Release|x64.Build.0 = Release|Any CPU
 		{7136C147-EBA9-4468-BD23-812EAFC5EF0B}.Release|x86.ActiveCfg = Release|Any CPU
 		{7136C147-EBA9-4468-BD23-812EAFC5EF0B}.Release|x86.Build.0 = Release|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Debug|x64.Build.0 = Debug|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Debug|x86.Build.0 = Debug|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Release|x64.ActiveCfg = Release|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Release|x64.Build.0 = Release|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Release|x86.ActiveCfg = Release|Any CPU
-		{BBA55F65-E1FE-4493-86FF-F21D5054F04F}.Release|x86.Build.0 = Release|Any CPU
 		{A3968303-38CE-48D9-B17B-07E03B63B4A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A3968303-38CE-48D9-B17B-07E03B63B4A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3968303-38CE-48D9-B17B-07E03B63B4A0}.Debug|x64.ActiveCfg = Debug|x64

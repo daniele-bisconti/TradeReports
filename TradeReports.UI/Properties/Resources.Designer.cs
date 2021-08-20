@@ -10,7 +10,8 @@
 
 namespace TradeReports.UI.Properties {
     using System;
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,15 +23,15 @@ namespace TradeReports.UI.Properties {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -44,7 +45,7 @@ namespace TradeReports.UI.Properties {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -58,34 +59,16 @@ namespace TradeReports.UI.Properties {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to wts.ItemName.
+        ///   Looks up a localized string similar to TradeReports.
         /// </summary>
         public static string AppDisplayName {
             get {
                 return ResourceManager.GetString("AppDisplayName", resourceCulture);
             }
         }
-    
-        /// <summary>
-        ///   Looks up a localized string similar to ShellGoBackButton.
-        /// </summary>
-        public static string ShellGoBackButton {
-            get {
-                return ResourceManager.GetString("ShellGoBackButton", resourceCulture);
-            }
-        }
-    
-        /// <summary>
-        ///   Looks up a localized string similar to ShellHamburgerButtonName.
-        /// </summary>
-        public static string ShellHamburgerButtonName {
-            get {
-                return ResourceManager.GetString("ShellHamburgerButtonName", resourceCulture);
-            }
-        }
-    
+        
         /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
@@ -94,16 +77,7 @@ namespace TradeReports.UI.Properties {
                 return ResourceManager.GetString("MainPageTitle", resourceCulture);
             }
         }
-    
-        /// <summary>
-        ///   Looks up a localized string similar to Main.
-        /// </summary>
-        public static string ShellMainPage {
-            get {
-                return ResourceManager.GetString("ShellMainPage", resourceCulture);
-            }
-        }
-    
+        
         /// <summary>
         ///   Looks up a localized string similar to Operations.
         /// </summary>
@@ -112,16 +86,7 @@ namespace TradeReports.UI.Properties {
                 return ResourceManager.GetString("OperationsPageTitle", resourceCulture);
             }
         }
-    
-        /// <summary>
-        ///   Looks up a localized string similar to Operations.
-        /// </summary>
-        public static string ShellOperationsPage {
-            get {
-                return ResourceManager.GetString("ShellOperationsPage", resourceCulture);
-            }
-        }
-    
+        
         /// <summary>
         ///   Looks up a localized string similar to Reports.
         /// </summary>
@@ -130,7 +95,43 @@ namespace TradeReports.UI.Properties {
                 return ResourceManager.GetString("ReportsPageTitle", resourceCulture);
             }
         }
-    
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go back.
+        /// </summary>
+        public static string ShellGoBackButton {
+            get {
+                return ResourceManager.GetString("ShellGoBackButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open or close navigation.
+        /// </summary>
+        public static string ShellHamburgerButtonName {
+            get {
+                return ResourceManager.GetString("ShellHamburgerButtonName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main.
+        /// </summary>
+        public static string ShellMainPage {
+            get {
+                return ResourceManager.GetString("ShellMainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operations.
+        /// </summary>
+        public static string ShellOperationsPage {
+            get {
+                return ResourceManager.GetString("ShellOperationsPage", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Reports.
         /// </summary>

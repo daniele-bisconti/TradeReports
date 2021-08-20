@@ -10,8 +10,6 @@ using Microsoft.EntityFrameworkCore.Sqlite;
 
 using TradeReports.UI.Contracts.Services;
 using TradeReports.UI.Contracts.Views;
-using TradeReports.UI.Core.Contracts.Services;
-using TradeReports.UI.Core.Services;
 using TradeReports.UI.Models;
 using TradeReports.UI.Services;
 using TradeReports.UI.ViewModels;
@@ -66,21 +64,20 @@ namespace TradeReports.UI
             // Activation Handlers
             services.AddDbContext<OperationContext>(options =>
             {
-                options.UseSqlite(@"Data Source=C:\Users\bisco\OneDrive\Documenti\BSCCoding\TradeReports\TradeReports.UI\bin\Debug\netcoreapp3.1\OperationsDB.db;");
+                options.UseSqlite(@"Data Source=OperationsDB.db;");
                 options.UseLazyLoadingProxies();
             }
             );
 
             // Core Services
-
-            // Services
             services.AddSingleton<IOperationsServiceAsync, OperationsService>();
-            services.AddSingleton<ISampleDataService, SampleDataService>();
-            services.AddSingleton<IPageService, PageService>();
-            services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ICategoryServiceAsync, CategoryServiceAsync>();
             services.AddSingleton<IPosServiceAsync, PosServiceAsync>();
             services.AddSingleton<ICapitalService, CapitalServiceAsync>();
+
+            // Services
+            services.AddSingleton<IPageService, PageService>();
+            services.AddSingleton<INavigationService, NavigationService>();
 
             // Views and ViewModels
             services.AddTransient<IShellWindow, ShellWindow>();
