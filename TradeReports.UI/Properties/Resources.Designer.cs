@@ -70,6 +70,60 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Capital AT.
+        /// </summary>
+        public static string CapitalAT {
+            get {
+                return ResourceManager.GetString("CapitalAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capital DT.
+        /// </summary>
+        public static string CapitalDT {
+            get {
+                return ResourceManager.GetString("CapitalDT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categoria.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close Date.
+        /// </summary>
+        public static string CloseDate {
+            get {
+                return ResourceManager.GetString("CloseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day.
+        /// </summary>
+        public static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gap M.
+        /// </summary>
+        public static string GapMinutes {
+            get {
+                return ResourceManager.GetString("GapMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         public static string MainPageTitle {
@@ -79,11 +133,65 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operations.
+        ///   Looks up a localized string similar to N. Trade M..
+        /// </summary>
+        public static string MonthTradeNumber {
+            get {
+                return ResourceManager.GetString("MonthTradeNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nuova Operazione.
+        /// </summary>
+        public static string NewOperationPageTitle {
+            get {
+                return ResourceManager.GetString("NewOperationPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Date.
+        /// </summary>
+        public static string OpenDate {
+            get {
+                return ResourceManager.GetString("OpenDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operazioni.
         /// </summary>
         public static string OperationsPageTitle {
             get {
                 return ResourceManager.GetString("OperationsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P&amp;L.
+        /// </summary>
+        public static string PL {
+            get {
+                return ResourceManager.GetString("PL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pos.
+        /// </summary>
+        public static string Pos {
+            get {
+                return ResourceManager.GetString("Pos", resourceCulture);
             }
         }
         
@@ -124,7 +232,7 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Operations.
+        ///   Looks up a localized string similar to Operazioni.
         /// </summary>
         public static string ShellOperationsPage {
             get {
@@ -133,11 +241,38 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reports.
+        ///   Looks up a localized string similar to Report.
         /// </summary>
         public static string ShellReportsPage {
             get {
                 return ResourceManager.GetString("ShellReportsPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Size {
+            get {
+                return ResourceManager.GetString("Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Strumento.
+        /// </summary>
+        public static string Tool {
+            get {
+                return ResourceManager.GetString("Tool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N. Trade Tot..
+        /// </summary>
+        public static string TradeNumber {
+            get {
+                return ResourceManager.GetString("TradeNumber", resourceCulture);
             }
         }
     }

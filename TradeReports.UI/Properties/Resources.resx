@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ShellReportsPage" xml:space="preserve">
-    <value>Reports</value>
+    <value>Report</value>
   </data>
   <data name="ReportsPageTitle" xml:space="preserve">
     <value>Reports</value>
   </data>
   <data name="ShellOperationsPage" xml:space="preserve">
-    <value>Operations</value>
+    <value>Operazioni</value>
   </data>
   <data name="OperationsPageTitle" xml:space="preserve">
-    <value>Operations</value>
+    <value>Operazioni</value>
   </data>
   <data name="ShellMainPage" xml:space="preserve">
     <value>Main</value>
@@ -143,5 +143,50 @@
   </data>
   <data name="AppDisplayName" xml:space="preserve">
     <value>TradeReports</value>
+  </data>
+  <data name="CapitalAT" xml:space="preserve">
+    <value>Capital AT</value>
+  </data>
+  <data name="CapitalDT" xml:space="preserve">
+    <value>Capital DT</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="CloseDate" xml:space="preserve">
+    <value>Close Date</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="GapMinutes" xml:space="preserve">
+    <value>Gap M</value>
+  </data>
+  <data name="MonthTradeNumber" xml:space="preserve">
+    <value>N. Trade M.</value>
+  </data>
+  <data name="NewOperationPageTitle" xml:space="preserve">
+    <value>Nuova Operazione</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="OpenDate" xml:space="preserve">
+    <value>Open Date</value>
+  </data>
+  <data name="PL" xml:space="preserve">
+    <value>P&amp;L</value>
+  </data>
+  <data name="Pos" xml:space="preserve">
+    <value>Pos</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Tool" xml:space="preserve">
+    <value>Strumento</value>
+  </data>
+  <data name="TradeNumber" xml:space="preserve">
+    <value>N. Trade Tot.</value>
   </data>
 </root>

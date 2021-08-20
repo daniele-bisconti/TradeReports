@@ -7,13 +7,14 @@
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="TradeReports.UI.Views.AddOperationPage"
       xmlns:converters="clr-namespace:TradeReports.UI.Converters"
+      xmlns:properties="clr-namespace:TradeReports.UI.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddOperationPage">
     <Page.Resources>
         <converters:BoolToPosConverter x:Key="myBoolToPosConverter"></converters:BoolToPosConverter>
     </Page.Resources>
-    
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -23,7 +24,7 @@
         <TextBlock
             Style="{StaticResource PageTitleStyle}"
             Margin="{StaticResource MediumLeftMargin}"
-            Text="Nuova Operazione" Foreground="White" 
+            Text="{x:Static properties:Resources.NewOperationPageTitle}" Foreground="White" 
             />
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
             <Grid >
@@ -35,7 +36,7 @@
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*" MinWidth="300"/>
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -52,43 +53,43 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" FontSize="15" Margin="10, 10,0,0" Content="Open Date"/>
+                <Label Grid.Row="0" Grid.Column="0" FontSize="15" Margin="10, 10,0,0" Content="{x:Static properties:Resources.OpenDate}"/>
                 <mah:DateTimePicker Grid.Row="0" Grid.Column="1" SelectedDateTime="{Binding OpenDate, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" mah:ScrollViewerHelper.IsHorizontalScrollWheelEnabled="True" Culture="it-IT"/>
-                                
-                <Label Grid.Row="1" Grid.Column="0" FontSize="15" Margin="10, 10,0,0" Content="Close Date"/>
+
+                <Label Grid.Row="1" Grid.Column="0" FontSize="15" Margin="10, 10,0,0" Content="{x:Static properties:Resources.CloseDate}"/>
                 <mah:DateTimePicker Grid.Row="1" Grid.Column="1" SelectedDateTime="{Binding CloseDate, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" Culture="it-IT"/>
-                
+
                 <!-- PL -->
-                <Label Grid.Row="2" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="P and L"/>
+                <Label Grid.Row="2" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.PL}"/>
                 <mah:NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding PL, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" NumericInputMode="Decimal" TextAlignment="Left" Interval="0.01" ParsingNumberStyle="Currency" StringFormat="N2"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="CapitalAT"/>
+                <Label Grid.Row="3" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.CapitalAT}"/>
                 <Label Grid.Row="3" Grid.Column="1" Content="{Binding CapitalAT}" FontSize="15" Margin="0, 10,0,0" />
 
-                <Label Grid.Row="4" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="CapitalDT"/>
+                <Label Grid.Row="4" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.CapitalDT}"/>
                 <Label Grid.Row="4" Grid.Column="1" Margin="0, 10,0,0" FontSize="15" Content="{Binding CapitalDT}"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Categoria"/>
+                <Label Grid.Row="5" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.Category}"/>
                 <ComboBox Grid.Row="5" Grid.Column="1" Margin="0, 10,0,0" IsEditable="True" ItemsSource="{Binding Categories}" DisplayMemberPath="Description" SelectedValue="{Binding Category}" Text="{Binding CategoryText}"/>
                 <Button  Grid.Row="5" Grid.Column="2" Width="50" Padding="0, 0" Margin=" 10, 10,0,0" HorizontalAlignment="Left" FontSize="20" Command="{Binding AddCategory}" Content="+"/>
 
-                <Label Grid.Row="6" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Strumento"/>
+                <Label Grid.Row="6" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.Tool}"/>
                 <ComboBox Grid.Row="6" Grid.Column="1" Margin="0, 10,0,0" IsEditable="True" ItemsSource="{Binding Tools}" DisplayMemberPath="Description" SelectedValue="{Binding Tool}" Text="{Binding ToolText}"/>
                 <Button  Grid.Row="6" Grid.Column="2" Width="50" Padding="0, 0" Margin=" 10, 10,0,0" HorizontalAlignment="Left" FontSize="20" Command="{Binding AddTool}" Content="+"/>
 
-                <Label Grid.Row="7" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Size"/>
+                <Label Grid.Row="7" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.Size}"/>
                 <mah:NumericUpDown Grid.Row="7" Grid.Column="1" Value="{Binding Size, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" NumericInputMode="Decimal" TextAlignment="Left" Interval="0.01" ParsingNumberStyle="Currency" StringFormat="N2"/>
 
-                <Label Grid.Row="8" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Pos"/>
+                <!--<Label Grid.Row="8" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.Pos}"/>-->
                 <!--<ComboBox Grid.Row="8" Grid.Column="1" Margin="0, 10,0,0" IsEditable="false" ItemsSource="{Binding PosList, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Description" SelectedValue="{Binding Pos}" />-->
-                <GroupBox Grid.Row="8" Grid.Column="1" Header="Pos" Margin="0, 10, 0 ,0">
+                <GroupBox Grid.Row="8" Grid.Column="1" Header="{x:Static properties:Resources.Pos}" Margin="0, 10, 0 ,0">
                     <StackPanel>
                         <RadioButton Content="Long" IsChecked="{Binding Pos, Converter={StaticResource myBoolToPosConverter}, ConverterParameter=Long}"></RadioButton>
                         <RadioButton Margin="0, 10, 0, 0" Content="Short" Foreground="Red" IsChecked="{Binding Pos, Converter={StaticResource myBoolToPosConverter}, ConverterParameter=Short}"></RadioButton>
                     </StackPanel>
                 </GroupBox>
 
-                <Label Grid.Row="9" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="Note"/>
+                <Label Grid.Row="9" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.Note}"/>
                 <TextBox
                     Height="250"
                     VerticalScrollBarVisibility="Visible"
