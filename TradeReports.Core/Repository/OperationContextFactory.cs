@@ -13,7 +13,7 @@ namespace TradeReports.Core.Repository
         public OperationContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<OperationContext>();
-            optionsBuilder.UseSqlite(@"Data Source=C:\Users\bisco\OneDrive\Documenti\BSCCoding\TradeReports\TradeReports.UI\bin\Debug\netcoreapp3.1\OperationsDB.db;");
+            optionsBuilder.UseSqlite(@"Data Source=C:\Users\bisco\OneDrive\Documenti\BSCCoding\TradeReports\TradeReports.UI\bin\Release\netcoreapp3.1\publish\OperationsDB.db;");
 
             return new OperationContext(optionsBuilder.Options);
         }

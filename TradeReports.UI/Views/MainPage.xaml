@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:TradeReports.UI.Properties"
     mc:Ignorable="d"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -25,6 +26,58 @@
             The Mahapps Gray10 color represents where you should place your content.
             Place your content here.
             -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="5"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="5"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0" Grid.Column="2" Header="{x:Static properties:Resources.CapitalVariation}">
+                <Grid >
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding Series}" Zoom="X" >
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:AxesCollection>
+                                <lvc:Axis Labels="{Binding Labels}" LabelsRotation="-45" Foreground="White" >
+                                    <lvc:Axis.Separator >
+                                        <lvc:Separator Step="1" StrokeThickness="0"/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:AxesCollection>
+                        </lvc:CartesianChart.AxisX>
+                    </lvc:CartesianChart>
+                </Grid>
+            </GroupBox>
+
+            <GridSplitter Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" />
+
+            <Grid Grid.Row="0" Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="9*" />
+                </Grid.RowDefinitions>
+
+                <Viewbox Grid.Row="0" Margin="10,10,10,10" MaxHeight="30">
+                    <TextBlock >
+                        <Run Text="{x:Static properties:Resources.CurrentCapital}" Foreground="White"></Run>
+                        <Run Text=":" Foreground="White"></Run>
+                    </TextBlock>
+                </Viewbox>
+
+                <Viewbox Grid.Row="1"  Margin="10,10,10,10" MaxHeight="100" VerticalAlignment="Top">
+                    <TextBlock VerticalAlignment="Top">                        
+                        <Run Text="{Binding LastCapital}" Foreground="White"></Run>
+                    </TextBlock>
+                </Viewbox>
+            </Grid>
+
+            <GridSplitter Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" />
+            
+            <GridSplitter Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" />
         </Grid>
     </Grid>
 </Page>

@@ -130,10 +130,10 @@
     <value>Operazioni</value>
   </data>
   <data name="ShellMainPage" xml:space="preserve">
-    <value>Main</value>
+    <value>Home</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
-    <value>Main</value>
+    <value>Home</value>
   </data>
   <data name="ShellGoBackButton" xml:space="preserve">
     <value>Go back</value>
@@ -188,5 +188,14 @@
   </data>
   <data name="TradeNumber" xml:space="preserve">
     <value>N. Trade Tot.</value>
+  </data>
+  <data name="Capital" xml:space="preserve">
+    <value>Capitale</value>
+  </data>
+  <data name="CapitalVariation" xml:space="preserve">
+    <value>Capitale nel tempo</value>
+  </data>
+  <data name="CurrentCapital" xml:space="preserve">
+    <value>Capitale Attuale</value>
   </data>
 </root>

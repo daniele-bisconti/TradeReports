@@ -74,6 +74,7 @@ namespace TradeReports.UI
             services.AddSingleton<ICategoryServiceAsync, CategoryServiceAsync>();
             services.AddSingleton<IPosServiceAsync, PosServiceAsync>();
             services.AddSingleton<ICapitalService, CapitalServiceAsync>();
+            services.AddSingleton<IOperationsAnalysisService, OperationsAnalysisService>();
 
             // Services
             services.AddSingleton<IPageService, PageService>();

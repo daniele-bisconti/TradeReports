@@ -70,6 +70,15 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Capitale.
+        /// </summary>
+        public static string Capital {
+            get {
+                return ResourceManager.GetString("Capital", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Capital AT.
         /// </summary>
         public static string CapitalAT {
@@ -84,6 +93,15 @@ namespace TradeReports.UI.Properties {
         public static string CapitalDT {
             get {
                 return ResourceManager.GetString("CapitalDT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capitale nel tempo.
+        /// </summary>
+        public static string CapitalVariation {
+            get {
+                return ResourceManager.GetString("CapitalVariation", resourceCulture);
             }
         }
         
@@ -106,6 +124,15 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Capitale Attuale.
+        /// </summary>
+        public static string CurrentCapital {
+            get {
+                return ResourceManager.GetString("CurrentCapital", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Day.
         /// </summary>
         public static string Day {
@@ -124,7 +151,7 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Main.
+        ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string MainPageTitle {
             get {
@@ -223,7 +250,7 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Main.
+        ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string ShellMainPage {
             get {
