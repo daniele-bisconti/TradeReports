@@ -19,6 +19,9 @@ using Microsoft.EntityFrameworkCore;
 using TradeReports.Core.Services;
 using TradeReports.Core.Interfaces;
 using TradeReports.Core.Models;
+using TradeReports.Core.Analytics.Interfaces;
+using TradeReports.Core.Analytics.Services;
+using Serilog;
 
 namespace TradeReports.UI
 {
@@ -43,6 +46,15 @@ namespace TradeReports.UI
         {
             var appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
+            // Specifying the configuration for serilog
+            Log.Logger = new LoggerConfiguration() // initiate the logger configuration
+                            .WriteTo.File(Path.Combine(appLocation, @"Logs/Log.log"), rollingInterval: RollingInterval.Day)
+                            .Enrich.FromLogContext() //Adds more information to our logs from built in Serilog 
+                            .WriteTo.Console() // decide where the logs are going to be shown
+                            .CreateLogger(); //initialise the logger
+
+            Log.Logger.Information("Application Starting");
+
             // For more information about .NET generic host see  https://docs.microsoft.com/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0
             _host = Host.CreateDefaultBuilder(e.Args)
                     .ConfigureAppConfiguration(c =>
@@ -50,6 +62,7 @@ namespace TradeReports.UI
                         c.SetBasePath(appLocation);
                     })
                     .ConfigureServices(ConfigureServices)
+                    .UseSerilog()
                     .Build();
 
             await _host.StartAsync();

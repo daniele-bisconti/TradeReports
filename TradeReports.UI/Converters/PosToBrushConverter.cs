@@ -21,7 +21,7 @@ namespace TradeReports.UI.Converters
                 case PosType.Short:
                     return Brushes.Red;
                 default:
-                    return DependencyProperty.UnsetValue;
+                    return Brushes.White;
             }
         }
 

@@ -50,7 +50,7 @@
                 IsReadOnly="True"
                 SelectedItem="{Binding SelectedOperation}"
                 SelectionMode="Single"
-                Style="{StaticResource MahApps.Styles.DataGrid.Azure}"
+                Style="{StaticResource MahApps.Styles.DataGrid.Azure}"                
                 FontSize="14px">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
@@ -78,7 +78,7 @@
                     <DataGridTextColumn Binding="{Binding Pos.Description}" Header="{x:Static properties:Resources.Pos}" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Background" Value="{Binding Pos, Converter={StaticResource PosToBrushConverter}}"/>
+                                <Setter Property="Foreground" Value="{Binding Pos, Converter={StaticResource PosToBrushConverter}}"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>

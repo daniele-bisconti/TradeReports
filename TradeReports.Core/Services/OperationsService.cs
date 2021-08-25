@@ -39,6 +39,7 @@ namespace TradeReports.Core.Services
             List<Operation> followingOps = _context.Operations
                 .Where(o => o.CloseDate > operation.CloseDate)
                 .OrderBy(o => o.CloseDate)
+                .OrderBy(o => o.TradeNumber)
                 .ToList();
 
             Operation prev = operation;

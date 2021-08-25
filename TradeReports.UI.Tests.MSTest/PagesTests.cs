@@ -7,8 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using TradeReports.UI.Contracts.Services;
-using TradeReports.UI.Core.Contracts.Services;
-using TradeReports.UI.Core.Services;
 using TradeReports.UI.Models;
 using TradeReports.UI.Services;
 using TradeReports.UI.ViewModels;
@@ -35,7 +33,6 @@ namespace TradeReports.UI.Tests.MSTest
             // Core Services
 
             // Services
-            services.AddSingleton<ISampleDataService, SampleDataService>();
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
 

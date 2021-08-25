@@ -8,7 +8,7 @@
     <AssemblyName>TradeReports</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf.Core" Version="0.9.8" />
     <PackageReference Include="MahApps.Metro" Version="2.4.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.9" />
@@ -23,6 +23,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
+    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TradeReports.Core.Analitycs\TradeReports.Core.Analitycs.csproj" />

@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using TradeReports.Core.Models;
 using System.Linq;
 using TradeReports.Core.Types;
+using LiveCharts.Defaults;
+using TradeReports.Core.Analytics.Interfaces;
 
 namespace TradeReports.UI.ViewModels
 {
@@ -56,14 +58,22 @@ namespace TradeReports.UI.ViewModels
             Series = new SeriesCollection();
             Labels = new List<string>();
 
-            Series.Add(new LineSeries { Values = new ChartValues<decimal>()});
+            Series.Add(new LineSeries { Values = new ChartValues<decimal>(), Name = "Media_Mobile" });
+            Series.Add(new CandleSeries { Values = new ChartValues<OhlcPoint>(), Name = "Variazione_Capitale"});
 
-            var operations = await _operationsAnalysisService.GetCapitalVariation(DateTimeAggregation.Day);
+            var operations = await _operationsAnalysisService.GetGroupedCapitals(DateTimeAggregation.Day);
+            var movingAverage = await _operationsAnalysisService.GetMovingAverage(14);
 
             foreach (var op in operations)
             {
-                Series[0].Values.Add(op.Value);
+                Series[1].Values.Add(new OhlcPoint((double)op.Value[0], (double)op.Value.Max(), (double)op.Value.Min(), (double)op.Value[op.Value.Count - 1]));
                 Labels.Add(op.Key.ToString("dd/MM/yy"));
+            }
+
+            foreach (var ma in movingAverage)
+            {
+                Series[0].Values.Add(ma.Value);
+                Labels.Add(ma.Key.ToString("dd/MM/yy"));
             }
 
             LastCapital =  _capitalService.GetLastCapital().ToString("#.##");

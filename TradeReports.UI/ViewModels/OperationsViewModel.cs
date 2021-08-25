@@ -8,6 +8,7 @@ using MahApps.Metro.Controls.Dialogs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Serilog;
 using TradeReports.Core.Interfaces;
 using TradeReports.Core.Models;
 using TradeReports.Core.Repository;
@@ -33,7 +34,10 @@ namespace TradeReports.UI.ViewModels
         public Operation SelectedOperation
         {
             get { return _selectedOperation; }
-            set { _selectedOperation = value; }
+            set 
+            {
+                SetProperty(ref _selectedOperation, value);
+            }
         }
 
         public OperationsViewModel(IOperationsServiceAsync dataService, INavigationService navigationService)
@@ -50,15 +54,23 @@ namespace TradeReports.UI.ViewModels
 
         private async Task RefreshOperationsList()
         {
-            Source.Clear();
-
-            // Replace this with your actual data
-            var data = await _dataService.GetGridDataAsync();
-            data.OrderBy(o => o.CloseDate);
-
-            foreach (var item in data)
+            try
             {
-                Source.Add(item);
+                Source.Clear();
+
+                // Replace this with your actual data
+                var data = await _dataService.GetGridDataAsync();
+                data.OrderBy(o => o.CloseDate);
+
+                foreach (var item in data)
+                {
+                    Source.Add(item);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+                throw;
             }
         }
 
@@ -75,6 +87,9 @@ namespace TradeReports.UI.ViewModels
         private async void OnDeleteOperationInvoked()
         {
             Operation selected = SelectedOperation;
+
+            if (!CanRemove()) return;
+
             try
             {
                 MessageDialogResult result = await _dialogCoordinator.ShowMessageAsync(this, "Conferma eliminazione", $"Eliminare l'operazione aperta il: {selected.OpenDate} e chiusa il: {selected.CloseDate}", MessageDialogStyle.AffirmativeAndNegative);
@@ -83,12 +98,19 @@ namespace TradeReports.UI.ViewModels
                 {
                     await _dataService.DeleteOperationAsync(selected.Id.ToString());
                     await RefreshOperationsList();
+                    Log.Logger.Information($"Removed operation with id {selected.Id}");
                 }
             }
-            catch(ArgumentException e)
+            catch(Exception e)
             {
-                Debug.WriteLine(e.Message);
+                Log.Logger.Error(e.ToString());
+                throw;
             }
+        }
+
+        private bool CanRemove()
+        {
+            return SelectedOperation != null;
         }
     }
 }

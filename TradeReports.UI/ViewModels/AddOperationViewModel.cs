@@ -1,5 +1,7 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,9 +49,9 @@ namespace TradeReports.UI.ViewModels
         #endregion
 
         #region Constructors
-        public AddOperationViewModel(ICapitalService capitalService, 
-            ICategoryServiceAsync categoryService, 
-            IPosServiceAsync posService, 
+        public AddOperationViewModel(ICapitalService capitalService,
+            ICategoryServiceAsync categoryService,
+            IPosServiceAsync posService,
             IOperationsServiceAsync operationsService,
             INavigationService navigationService)
         {
@@ -197,20 +199,21 @@ namespace TradeReports.UI.ViewModels
 
         #region Commands
 
-        public ICommand AddCategory => _addCategory ?? (_addCategory = new RelayCommand(AddCategoryInvoked)); 
+        public ICommand AddCategory => _addCategory ?? (_addCategory = new RelayCommand(AddCategoryInvoked));
         public ICommand AddTool => _addTool ?? (_addTool = new RelayCommand(AddToolInvoked));
         public ICommand AddOperation => _addOperation ?? (_addOperation = new RelayCommand(AddOperationInvoked, CanAddOperation));
 
         private async void AddCategoryInvoked()
         {
-            if(Category is null && !string.IsNullOrEmpty(CategoryText))
+            if (Category is null && !string.IsNullOrEmpty(CategoryText))
                 Category = await _categoryService.AddCategory(CategoryText);
 
             await RefreshCategories();
         }
+
         private async void AddToolInvoked()
         {
-            if(Category != null && Tool is null && !string.IsNullOrEmpty(ToolText))
+            if (Category != null && Tool is null && !string.IsNullOrEmpty(ToolText))
                 Tool = await _categoryService.AddTool(Category.Id, ToolText);
 
             RefreshTools();
@@ -220,7 +223,8 @@ namespace TradeReports.UI.ViewModels
         {
             Pos pos = PosList.FirstOrDefault(p => p.Id == (int)_pos);
 
-            _operation = new OperationParams { 
+            _operation = new OperationParams
+            {
                 OpenDate = OpenDate.Value,
                 CloseDate = CloseDate.Value,
                 CapitalAT = CapitalAT.Value,
@@ -233,6 +237,7 @@ namespace TradeReports.UI.ViewModels
             };
 
             await _operationService.AddOperationAsync(_operation);
+            Log.Logger.Information($"Added new operation");
             _navigationService.GoBack();
         }
 
@@ -252,40 +257,60 @@ namespace TradeReports.UI.ViewModels
 
         private async Task RefreshCategories()
         {
-            Categories.Clear();
-
-            CategoryText = string.Empty;
-
-            var cats = await _categoryService.GetCategories();
-
-            foreach (var c in cats)
+            try
             {
-                Categories.Add(c);
+                Categories.Clear();
+
+                var cats = await _categoryService.GetCategories();
+
+                foreach (var c in cats)
+                {
+                    Categories.Add(c);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+                throw;
             }
         }
 
         private void RefreshTools()
         {
-            Tools.Clear();
-
-            ToolText = string.Empty;
-
-            if (Category is null) return;
-
-            foreach (var tool in Category.Tools)
+            try
             {
-                Tools.Add(tool);
+                Tools.Clear();
+
+                if (Category is null) return;
+
+                foreach (var tool in Category.Tools)
+                {
+                    Tools.Add(tool);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+                throw;
             }
         }
         private async Task RefreshPos()
         {
-            PosList.Clear();
-
-            var pos = await _posService.GetAllPos();
-
-            foreach (var p in pos)
+            try
             {
-                PosList.Add(p);
+                PosList.Clear();
+
+                var pos = await _posService.GetAllPos();
+
+                foreach (var p in pos)
+                {
+                    PosList.Add(p);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+                throw;
             }
         }
 

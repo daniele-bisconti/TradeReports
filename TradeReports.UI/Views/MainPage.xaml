@@ -49,6 +49,9 @@
                                 </lvc:Axis>
                             </lvc:AxesCollection>
                         </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.DataTooltip >
+                            <lvc:DefaultTooltip ></lvc:DefaultTooltip>                            
+                        </lvc:CartesianChart.DataTooltip>
                     </lvc:CartesianChart>
                 </Grid>
             </GroupBox>
