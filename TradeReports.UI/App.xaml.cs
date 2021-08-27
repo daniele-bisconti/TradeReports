@@ -70,6 +70,7 @@ namespace TradeReports.UI
 
         private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
+            var appLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             // App Host
             services.AddHostedService<ApplicationHostService>();
@@ -77,7 +78,8 @@ namespace TradeReports.UI
             // Activation Handlers
             services.AddDbContext<OperationContext>(options =>
             {
-                options.UseSqlite(@"Data Source=OperationsDB.db;");
+                string path = Path.Combine(appLocation, "/OperationsDB.db");
+                options.UseSqlite(@$"Data Source={path};");
                 options.UseLazyLoadingProxies();
             }
             );
