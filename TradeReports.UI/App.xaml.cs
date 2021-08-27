@@ -65,6 +65,10 @@ namespace TradeReports.UI
                     .UseSerilog()
                     .Build();
 
+            
+            var context = GetService<OperationContext>();
+            context.Database.Migrate();
+
             await _host.StartAsync();
         }
 
