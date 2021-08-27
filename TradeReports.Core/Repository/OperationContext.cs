@@ -29,7 +29,13 @@ namespace TradeReports.Core.Repository
                 .HasConversion(
                     e => e.ToString(),
                     e => (PosType)Enum.Parse(typeof(PosType), e)
-                    );
+                 );
+
+            modelBuilder
+                .Entity<Pos>()
+                .HasData(
+                new Pos { Id = (int)PosType.Long, Description = PosType.Long },
+                new Pos { Id = (int)PosType.Short, Description = PosType.Short });
         }
     }
 }
