@@ -46,7 +46,15 @@ namespace TradeReports.Core.Analitycs.Capital
 
                                 return op.CloseDate.Date;
                             })
-                            .ToDictionary(o => o.Key, o => o.OrderBy(o => o.CloseDate).Select(o => o.CapitalDT).ToList());
+                            .ToDictionary(o => o.Key, ops => ops.OrderBy(o => o.CloseDate)
+                                .Select(o => {
+                                    if (o.Equals(ops.First()))
+                                        return new List<decimal> { o.CapitalAT, o.CapitalDT };
+                                    return new List<decimal> { o.CapitalDT };
+
+                                })
+                                .SelectMany(o => o)
+                                .ToList());
         }
 
         public Dictionary<DateTime, decimal> MovingAverage(int period)

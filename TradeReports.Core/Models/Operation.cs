@@ -50,5 +50,16 @@ namespace TradeReports.Core.Models
         public virtual Category Category { get; set; }
         public virtual Tool Tool { get; set; }
         public string Note { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Operation operation &&
+                   Id.Equals(operation.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
     }
 }
