@@ -82,7 +82,7 @@ namespace TradeReports.UI
             // Activation Handlers
             services.AddDbContext<OperationContext>(options =>
             {
-                string path = Path.Combine(appLocation, "/OperationsDB.db");
+                string path = Path.Combine(appLocation, @"OperationsDB.db");
                 options.UseSqlite(@$"Data Source={path};");
                 options.UseLazyLoadingProxies();
             }

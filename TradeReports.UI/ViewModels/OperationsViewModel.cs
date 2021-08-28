@@ -60,12 +60,13 @@ namespace TradeReports.UI.ViewModels
 
                 // Replace this with your actual data
                 var data = await _dataService.GetGridDataAsync();
-                data.OrderBy(o => o.CloseDate);
+                data = data.OrderBy(o => o.CloseDate);
 
                 foreach (var item in data)
                 {
                     Source.Add(item);
                 }
+
             }
             catch (Exception e)
             {
