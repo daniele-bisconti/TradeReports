@@ -46,6 +46,7 @@ namespace TradeReports.Core.Analitycs.Capital
 
                                 return op.CloseDate.Date;
                             })
+                            .OrderBy(op => op.Key)
                             .ToDictionary(o => o.Key, ops => ops.OrderBy(o => o.CloseDate)
                                 .Select(o => {
                                     if (o.Equals(ops.First()))

@@ -58,6 +58,7 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden" />
                     <DataGridTextColumn Binding="{Binding OpenDate, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}" Header="{x:Static properties:Resources.OpenDate}"/>
                     <DataGridTextColumn Binding="{Binding CloseDate, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}" Header="{x:Static properties:Resources.CloseDate}"  SortDirection="Ascending"/>
                     <DataGridTextColumn Binding="{Binding Day}" Header="{x:Static properties:Resources.Day}" />

@@ -12,6 +12,7 @@ using System.Linq;
 using TradeReports.Core.Types;
 using LiveCharts.Defaults;
 using TradeReports.Core.Analytics.Interfaces;
+using TradeReports.Core.Analitycs.Capital;
 
 namespace TradeReports.UI.ViewModels
 {
@@ -19,6 +20,7 @@ namespace TradeReports.UI.ViewModels
     {
         private readonly IOperationsAnalysisService _operationsAnalysisService;
         private readonly ICapitalService _capitalService;
+        private readonly IOperationsServiceAsync _operationsService;
         private SeriesCollection _series;
         private List<string> _lables;
         private string _lastCapital;
@@ -47,10 +49,20 @@ namespace TradeReports.UI.ViewModels
             }
         }
 
-        public MainViewModel(ICapitalService capitalService, IOperationsAnalysisService operationsAnalysisService)
+        private CapitalVariationChartViewModel _chartViewModel;
+
+        public CapitalVariationChartViewModel ChartViewModel
+        {
+            get { return _chartViewModel; }
+            set { SetProperty(ref _chartViewModel, value); }
+        }
+
+
+        public MainViewModel(ICapitalService capitalService, IOperationsAnalysisService operationsAnalysisService, IOperationsServiceAsync operationsService)
         {
             _operationsAnalysisService = operationsAnalysisService;
             _capitalService = capitalService;
+            _operationsService = operationsService;
         }
 
         public async void OnNavigatedTo(object parameter)
@@ -64,6 +76,10 @@ namespace TradeReports.UI.ViewModels
             var operations = await _operationsAnalysisService.GetGroupedCapitals(DateTimeAggregation.Day);
             var movingAverage = await _operationsAnalysisService.GetMovingAverage(14);
 
+            var ops = (await _operationsService.GetGridDataAsync()).ToList();
+            CapitalAnalysis capAn = new CapitalAnalysis(ops);
+
+            ChartViewModel = new CapitalVariationChartViewModel(capAn);
             foreach (var op in operations)
             {
                 Series[1].Values.Add(new OhlcPoint((double)op.Value[0], (double)op.Value.Max(), (double)op.Value.Min(), (double)op.Value[op.Value.Count - 1]));
