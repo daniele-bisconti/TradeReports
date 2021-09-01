@@ -37,7 +37,6 @@ namespace TradeReports.UI.ViewModels
             set { SetProperty(ref _lables, value); }
         }
 
-
         public SeriesCollection Series
         {
             get { return _series; }
@@ -54,7 +53,6 @@ namespace TradeReports.UI.ViewModels
             get { return _chartViewModel; }
             set { SetProperty(ref _chartViewModel, value); }
         }
-
 
         public MainViewModel(ICapitalService capitalService, IOperationsAnalysisService operationsAnalysisService, IOperationsServiceAsync operationsService)
         {

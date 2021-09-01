@@ -48,7 +48,7 @@ namespace TradeReports.Core.Services
             {
                 o.TradeNumber++;
                 o.CapitalAT = prev.CapitalDT;
-                o.CapitalDT = prev.CapitalDT + o.PL;
+                o.CapitalDT += prev.CapitalDT + o.PL >= 0 ? o.PL : prev.CapitalDT;
                 prev = o;
             });
 

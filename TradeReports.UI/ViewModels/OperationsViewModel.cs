@@ -37,6 +37,7 @@ namespace TradeReports.UI.ViewModels
             set 
             {
                 SetProperty(ref _selectedOperation, value);
+                (DeleteOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
 
@@ -80,7 +81,7 @@ namespace TradeReports.UI.ViewModels
         }
 
         public ICommand AddOperation => _addOperation ?? (_addOperation = new RelayCommand(OnAddOperationInvoked));
-        public ICommand DeleteOperation => _deleteOperation ?? (_deleteOperation = new RelayCommand(OnDeleteOperationInvoked));
+        public ICommand DeleteOperation => _deleteOperation ?? (_deleteOperation = new RelayCommand(OnDeleteOperationInvoked, CanRemove));
 
         private void OnAddOperationInvoked()
             => _navigationService.NavigateTo(typeof(AddOperationViewModel).FullName);
@@ -88,8 +89,6 @@ namespace TradeReports.UI.ViewModels
         private async void OnDeleteOperationInvoked()
         {
             Operation selected = SelectedOperation;
-
-            if (!CanRemove()) return;
 
             try
             {

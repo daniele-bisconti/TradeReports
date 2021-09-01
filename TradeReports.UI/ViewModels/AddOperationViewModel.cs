@@ -94,7 +94,7 @@ namespace TradeReports.UI.ViewModels
             set
             {
                 SetProperty(ref _pl, value);
-                CapitalDT = CapitalAT + PL;
+                CapitalDT = CapitalAT + PL >= 0 ? CapitalAT + PL : 0;
                 (AddOperation as RelayCommand).NotifyCanExecuteChanged();
             }
         }
