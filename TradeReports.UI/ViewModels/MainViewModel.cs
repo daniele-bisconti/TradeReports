@@ -31,8 +31,6 @@ namespace TradeReports.UI.ViewModels
             set { SetProperty(ref _lastCapital, value); }
         }
 
-
-
         public List<string> Labels
         {
             get { return _lables; }
@@ -67,30 +65,10 @@ namespace TradeReports.UI.ViewModels
 
         public async void OnNavigatedTo(object parameter)
         {
-            Series = new SeriesCollection();
-            Labels = new List<string>();
-
-            Series.Add(new LineSeries { Values = new ChartValues<decimal>(), Name = "Media_Mobile" });
-            Series.Add(new CandleSeries { Values = new ChartValues<OhlcPoint>(), Name = "Variazione_Capitale"});
-
-            var operations = await _operationsAnalysisService.GetGroupedCapitals(DateTimeAggregation.Day);
-            var movingAverage = await _operationsAnalysisService.GetMovingAverage(14);
-
             var ops = (await _operationsService.GetGridDataAsync()).ToList();
             CapitalAnalysis capAn = new CapitalAnalysis(ops);
-
             ChartViewModel = new CapitalVariationChartViewModel(capAn);
-            foreach (var op in operations)
-            {
-                Series[1].Values.Add(new OhlcPoint((double)op.Value[0], (double)op.Value.Max(), (double)op.Value.Min(), (double)op.Value[op.Value.Count - 1]));
-                Labels.Add(op.Key.ToString("dd/MM/yy"));
-            }
 
-            foreach (var ma in movingAverage)
-            {
-                Series[0].Values.Add(ma.Value);
-                Labels.Add(ma.Key.ToString("dd/MM/yy"));
-            }
 
             LastCapital =  _capitalService.GetLastCapital().ToString("#.##");
         }

@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TradeReports.UI.Controls"             
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"             
-            xmlns:properties="clr-namespace:TradeReports.UI.Properties"
+                xmlns:properties="clr-namespace:TradeReports.UI.Properties"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <Grid>
@@ -14,17 +15,17 @@
                 <lvc:CartesianChart Grid.Row="1" Series="{Binding Series}" Zoom="X" >
                     <lvc:CartesianChart.AxisX>
                         <lvc:AxesCollection>
-                            <lvc:Axis Labels="{Binding Labels}" LabelsRotation="-45" Foreground="White" >
+                            <lvc:Axis LabelFormatter="{Binding Formatter}" Unit="{Binding Unit}"  MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}" LabelsRotation="-45" Foreground="White"  >
                                 <lvc:Axis.Separator >
-                                    <lvc:Separator Step="1" StrokeThickness="0"/>
+                                    <lvc:Separator StrokeThickness="0" Step="{Binding Step}"/>
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
                         </lvc:AxesCollection>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Foreground="White">
+                        <lvc:Axis Foreground="White" MinValue="0">
                             <lvc:Axis.Separator>
-                                <lvc:Separator StrokeThickness="0.2"></lvc:Separator>
+                                <lvc:Separator StrokeThickness="0.1"></lvc:Separator>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
@@ -32,6 +33,9 @@
                         <lvc:DefaultTooltip Background="#8C484747" ></lvc:DefaultTooltip>
                     </lvc:CartesianChart.DataTooltip>
                 </lvc:CartesianChart>
+
+
+                <Button Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30, 10, 10, 10">+</Button>
             </Grid>
         </GroupBox>
     </Grid>
