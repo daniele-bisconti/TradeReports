@@ -9,6 +9,7 @@
     xmlns:properties="clr-namespace:TradeReports.UI.Properties"
     mc:Ignorable="d"
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
     d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -36,13 +37,9 @@
                 <RowDefinition Height="10*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Viewbox Grid.Row="0" Margin="10,10,10,10" MaxHeight="30">
-                <TextBlock >
-                        <Run Text="{x:Static properties:Resources.CurrentCapital}" Foreground="White"></Run>
-                        <Run Text=":" Foreground="White"></Run>
-                        <Run Text="{Binding LastCapital}" Foreground="White"></Run>
-                </TextBlock>
-            </Viewbox>
+            <mah:Badged Grid.Row="0" Badge="{DynamicResource MahApps.Brushes.Text}">
+                
+            </mah:Badged>
 
 
             <GridSplitter Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" />

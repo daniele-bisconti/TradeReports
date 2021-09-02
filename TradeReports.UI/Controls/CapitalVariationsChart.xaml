@@ -15,7 +15,7 @@
                 <lvc:CartesianChart Grid.Row="1" Series="{Binding Series}" Zoom="X" >
                     <lvc:CartesianChart.AxisX>
                         <lvc:AxesCollection>
-                            <lvc:Axis LabelFormatter="{Binding Formatter}" Unit="{Binding Unit}"  MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}" LabelsRotation="-45" Foreground="White"  >
+                            <lvc:Axis LabelFormatter="{Binding Formatter}" Unit="{Binding Unit}"  MinValue="{Binding MinValue}" MaxValue="{Binding MaxValue}" LabelsRotation="-45" Foreground="{DynamicResource MahApps.Brushes.Text}"  >
                                 <lvc:Axis.Separator >
                                     <lvc:Separator StrokeThickness="0" Step="{Binding Step}"/>
                                 </lvc:Axis.Separator>
@@ -23,14 +23,16 @@
                         </lvc:AxesCollection>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Foreground="White" MinValue="0">
+                        <lvc:Axis Foreground="{DynamicResource MahApps.Brushes.Text}" MinValue="0">
                             <lvc:Axis.Separator>
                                 <lvc:Separator StrokeThickness="0.1"></lvc:Separator>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
                     <lvc:CartesianChart.DataTooltip >
-                        <lvc:DefaultTooltip Background="#8C484747" ></lvc:DefaultTooltip>
+                        <lvc:DefaultTooltip 
+                            Background="{DynamicResource MahApps.Brushes.Badged.Background}"
+                            Foreground="{DynamicResource MahApps.Brushes.Text}"></lvc:DefaultTooltip>
                     </lvc:CartesianChart.DataTooltip>
                 </lvc:CartesianChart>
 
