@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TradeReports.UI.Controls"             
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"             
-                xmlns:properties="clr-namespace:TradeReports.UI.Properties"
+             xmlns:properties="clr-namespace:TradeReports.UI.Properties"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
@@ -29,10 +29,11 @@
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
-                    <lvc:CartesianChart.DataTooltip >
+                    <lvc:CartesianChart.DataTooltip>
                         <lvc:DefaultTooltip 
                             Background="{DynamicResource MahApps.Brushes.Badged.Background}"
-                            Foreground="{DynamicResource MahApps.Brushes.Text}"></lvc:DefaultTooltip>
+                            Foreground="{DynamicResource MahApps.Brushes.Text}">                            
+                        </lvc:DefaultTooltip>
                     </lvc:CartesianChart.DataTooltip>
                 </lvc:CartesianChart>
 

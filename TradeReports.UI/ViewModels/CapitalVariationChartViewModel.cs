@@ -48,7 +48,6 @@ namespace TradeReports.UI.ViewModels
             set => SetProperty(ref _maxValue, value);
         }
 
-
         public long Unit 
         { 
             get => _unit; 
@@ -105,13 +104,17 @@ namespace TradeReports.UI.ViewModels
         private void AddMovingAverageSeries(CapitalAnalysis capital)
         {
             var movingAverage = capital.MovingAverage(14);
-            Series.Add(new LineSeries { Values = new ChartValues<DateTimePoint>(), Name = "Media_Mobile", Title = "Media Mobile (14)", StrokeThickness = 5 });
+            Series.Add(new LineSeries { 
+                Values = new ChartValues<DateTimePoint>(), 
+                Name = "Media_Mobile", 
+                Title = "Media Mobile (14)", 
+                StrokeThickness = 5
+            });
 
             // Aggiunta dei punti al grafico della media mobile            
             foreach (var ma in movingAverage)
             {
                 Series[^1].Values.Add(new DateTimePoint(ma.Key.Date, (double)ma.Value));
-
             }
         }
     }
