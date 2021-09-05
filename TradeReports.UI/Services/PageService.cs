@@ -23,6 +23,7 @@ namespace TradeReports.UI.Services
             Configure<OperationsViewModel, OperationsPage>();
             Configure<ReportsViewModel, ReportsPage>();
             Configure<AddOperationViewModel, AddOperationPage>();
+            Configure<CategoriesViewModel, CategoriesPage>();
         }
 
         public Type GetPageType(string key)

@@ -34,6 +34,7 @@ namespace TradeReports.UI.ViewModels
             new HamburgerMenuGlyphItem() { Label = Resources.ShellMainPage, Glyph = "\uE8A5", TargetPageType = typeof(MainViewModel) },
             new HamburgerMenuGlyphItem() { Label = Resources.ShellOperationsPage, Glyph = "\uE8A5", TargetPageType = typeof(OperationsViewModel) },
             new HamburgerMenuGlyphItem() { Label = Resources.ShellReportsPage, Glyph = "\uE8A5", TargetPageType = typeof(ReportsViewModel) },
+            new HamburgerMenuGlyphItem() { Label = Resources.ShellCategoryPage, Glyph = "\uE8A5", TargetPageType = typeof(CategoriesViewModel) },
         };
 
         public RelayCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new RelayCommand(OnGoBack, CanGoBack));

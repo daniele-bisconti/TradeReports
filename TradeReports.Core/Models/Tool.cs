@@ -12,5 +12,21 @@ namespace TradeReports.Core.Models
     {
         public int Id { get; set; }
         public string Description { get; set; }
+
+        public Tool Clone()
+        {
+            return new Tool { Id = Id, Description = Description };
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Tool tool &&
+                   Id == tool.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id);
+        }
     }
 }

@@ -115,6 +115,9 @@ namespace TradeReports.UI
             services.AddTransient<AddOperationPage>();
             services.AddTransient<AddOperationViewModel>();
 
+            services.AddTransient<CategoriesPage>();
+            services.AddTransient<CategoriesViewModel>();
+
             // Configuration
             services.Configure<AppConfig>(context.Configuration.GetSection(nameof(AppConfig)));
         }

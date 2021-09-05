@@ -198,4 +198,28 @@
   <data name="CurrentCapital" xml:space="preserve">
     <value>Capitale Attuale</value>
   </data>
+  <data name="MarginSizeMainTitle" xml:space="preserve">
+    <value>Margin Size</value>
+  </data>
+  <data name="NextTradeMainTitle" xml:space="preserve">
+    <value>Next Trade</value>
+  </data>
+  <data name="ShellCategoryPage" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="CategoriesPageTitle" xml:space="preserve">
+    <value>Categorie e Strumenti</value>
+  </data>
+  <data name="CategoryTableHeader" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="ToolTableHeader" xml:space="preserve">
+    <value>Strumenti</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Rimuovi Categoria</value>
+  </data>
+  <data name="DeleteTool" xml:space="preserve">
+    <value>Rimuovi Tool</value>
+  </data>
 </root>

@@ -36,9 +36,7 @@
                         </lvc:DefaultTooltip>
                     </lvc:CartesianChart.DataTooltip>
                 </lvc:CartesianChart>
-
-
-                <Button Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30, 10, 10, 10">+</Button>
+                
             </Grid>
         </GroupBox>
     </Grid>

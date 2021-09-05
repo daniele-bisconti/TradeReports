@@ -19,7 +19,7 @@ namespace TradeReports.UI.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -106,11 +106,29 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categorie e Strumenti.
+        /// </summary>
+        public static string CategoriesPageTitle {
+            get {
+                return ResourceManager.GetString("CategoriesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categoria.
         /// </summary>
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie.
+        /// </summary>
+        public static string CategoryTableHeader {
+            get {
+                return ResourceManager.GetString("CategoryTableHeader", resourceCulture);
             }
         }
         
@@ -142,6 +160,24 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rimuovi Categoria.
+        /// </summary>
+        public static string DeleteCategory {
+            get {
+                return ResourceManager.GetString("DeleteCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rimuovi Tool.
+        /// </summary>
+        public static string DeleteTool {
+            get {
+                return ResourceManager.GetString("DeleteTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gap M.
         /// </summary>
         public static string GapMinutes {
@@ -160,6 +196,15 @@ namespace TradeReports.UI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Margin Size.
+        /// </summary>
+        public static string MarginSizeMainTitle {
+            get {
+                return ResourceManager.GetString("MarginSizeMainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to N. Trade M..
         /// </summary>
         public static string MonthTradeNumber {
@@ -174,6 +219,15 @@ namespace TradeReports.UI.Properties {
         public static string NewOperationPageTitle {
             get {
                 return ResourceManager.GetString("NewOperationPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next Trade.
+        /// </summary>
+        public static string NextTradeMainTitle {
+            get {
+                return ResourceManager.GetString("NextTradeMainTitle", resourceCulture);
             }
         }
         
@@ -228,6 +282,15 @@ namespace TradeReports.UI.Properties {
         public static string ReportsPageTitle {
             get {
                 return ResourceManager.GetString("ReportsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie.
+        /// </summary>
+        public static string ShellCategoryPage {
+            get {
+                return ResourceManager.GetString("ShellCategoryPage", resourceCulture);
             }
         }
         
@@ -291,6 +354,15 @@ namespace TradeReports.UI.Properties {
         public static string Tool {
             get {
                 return ResourceManager.GetString("Tool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Strumenti.
+        /// </summary>
+        public static string ToolTableHeader {
+            get {
+                return ResourceManager.GetString("ToolTableHeader", resourceCulture);
             }
         }
         

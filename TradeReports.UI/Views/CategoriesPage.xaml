@@ -1,0 +1,98 @@
+﻿<Page x:Class="TradeReports.UI.Views.CategoriesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"      
+        Style="{DynamicResource MahApps.Styles.Page}"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:properties="clr-namespace:TradeReports.UI.Properties"
+      xmlns:local="clr-namespace:TradeReports.UI.Views"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+      xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CategoriesPage"
+      Dialog:DialogParticipation.Register="{Binding}">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Style="{StaticResource PageTitleStyle}"
+            Margin="{StaticResource MediumLeftMargin}"
+            Text="{x:Static properties:Resources.CategoriesPageTitle}" />
+        <Grid
+            Grid.Row="1"
+            Margin="{StaticResource MediumLeftRightMargin}"
+            Background="{DynamicResource MahApps.Brushes.Gray10}">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition  />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <DataGrid 
+                    ItemsSource="{Binding Categories}"
+                    AutoGenerateColumns="False"
+                    GridLinesVisibility="Vertical"
+                    SelectedItem="{Binding Category}"
+                    CanUserAddRows="False"
+                    CanUserDeleteRows="False"
+                    CanUserSortColumns="False">
+
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="{x:Static properties:Resources.DeleteCategory}" Command="{Binding DeleteCategory}" ></MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    
+                    <DataGrid.ColumnHeaderStyle>
+
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="BorderThickness" Value="0, 0, 0, 0"></Setter>
+                            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray10}" />
+                            <Setter Property="Padding" Value="10"></Setter>
+                            <Setter Property="FontSize" Value="16"></Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Binding="{Binding Description}" Header="{x:Static properties:Resources.CategoryTableHeader}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid 
+                    Grid.Column="1"
+                    ItemsSource="{Binding Tools}"
+                    AutoGenerateColumns="False"
+                    GridLinesVisibility="Vertical"
+                    CanUserDeleteRows="False"
+                    SelectedItem="{Binding Tool}"
+                    CanUserAddRows="False"
+                    CanUserSortColumns="False">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="{x:Static properties:Resources.DeleteTool}" Command="{Binding DeleteTool}" ></MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="BorderThickness" Value="0, 0, 0, 0"></Setter>
+                            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray10}" />
+                            <Setter Property="Padding" Value="10"></Setter>
+                            <Setter Property="FontSize" Value="16"></Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Binding="{Binding Description}" Header="{x:Static properties:Resources.ToolTableHeader}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

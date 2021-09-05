@@ -69,5 +69,87 @@ namespace TradeReports.Core.Services
 
             return category;
         }
+
+        public async Task<Category> DeleteCategory(int id)
+        {
+            Category category = await _context.Categories.FindAsync(id);
+
+            var operations = await _context.Operations.AnyAsync(o => o.Category.Equals(category));
+
+            if (operations) throw new OperationCanceledException("Category used by Operations");
+
+            if(category is null) return null;
+
+            // Rimozione dei tool associati alla categoria
+            _context.Tools.RemoveRange(category.Tools);
+
+            Category removed = _context.Categories.Remove(category).Entity;
+
+            _context.SaveChanges();
+
+            return removed;
+        }
+
+        public Category UpdateCategory(Category category)
+        {
+            if(category is null || !_context.Categories.Contains(category)) return null;
+
+            var updated = _context.Categories.Update(category);
+            _context.SaveChanges();
+
+            return updated.Entity;
+        }
+
+        public async Task<Tool> DeleteTool(int id)
+        {
+            Tool tool = _context.Tools.Find(id);
+            if (tool is null) return null;
+
+            var operations = await _context.Operations.AnyAsync(o => o.Tool.Equals(tool));
+
+            if (operations) throw new OperationCanceledException("Tool used by Operations");
+
+            var res = _context.Tools.Remove(tool).Entity;
+
+            _context.SaveChanges();
+
+            return res;
+        }
+
+        public Tool UpdateTool(Tool tool)
+        {
+            if(tool is null || !_context.Tools.Contains(tool)) return null;
+
+            var updated = _context.Tools.Update(tool);
+            _context.SaveChanges();
+
+            return updated.Entity;
+        }
+
+        public void UpdateCategories(IEnumerable<Category> categories)
+        {
+            if(categories is null || !categories.Any()) return;
+
+            foreach (Category category in categories)
+            {
+                var c = _context.Categories.Find(category.Id);
+                c.Description = category.Description;
+            }
+
+            _context.SaveChanges();
+        }
+
+        public void UpdateTools(IEnumerable<Tool> tools)
+        {
+            if(tools is null || !tools.Any()) return;
+
+            foreach(Tool tool in tools)
+            {
+                var t = _context.Tools.Find(tool.Id);
+                t.Description = tool.Description;
+            }
+
+            _context.SaveChanges();
+        }
     }
 }
