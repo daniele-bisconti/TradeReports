@@ -81,8 +81,8 @@ namespace TradeReports.UI.ViewModels
         private void SetMinAndMaxChatValues()
         {
             IEnumerable<double> xValues = Series.SelectMany(s => s.Values.GetPoints(s).Select(p => p.X));
-            MinValue = (long)xValues.Min();
-            MaxValue = (long)xValues.Max() + TimeSpan.FromDays(1).Ticks;
+            MinValue = xValues.Any() ? (long)xValues.Min() : DateTime.Now.Ticks;
+            MaxValue = xValues.Any() ? (long)xValues.Max() + TimeSpan.FromDays(1).Ticks : DateTime.Now.AddDays(1).Ticks;
         }
 
         private void AddCapitalVariationSeries(CapitalAnalysis capital)
