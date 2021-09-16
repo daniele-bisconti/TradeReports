@@ -78,7 +78,7 @@
                 <Button  Grid.Row="6" Grid.Column="2" Width="50" Padding="0, 0" Margin=" 10, 10,0,0" HorizontalAlignment="Left" FontSize="20" Command="{Binding AddTool}" Content="+"/>
 
                 <Label Grid.Row="7" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.Size}"/>
-                <mah:NumericUpDown Grid.Row="7" Grid.Column="1" Value="{Binding Size, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" NumericInputMode="Decimal" TextAlignment="Left" Interval="0.01" ParsingNumberStyle="Currency" StringFormat="N2"/>
+                <mah:NumericUpDown Grid.Row="7" Grid.Column="1" Value="{Binding Size, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}" FontSize="15" Margin="0, 10,0,0" NumericInputMode="Decimal" TextAlignment="Left" Interval="0.001" StringFormat="N3"/>
 
                 <!--<Label Grid.Row="8" Grid.Column="0" Margin="10, 10,0,0" FontSize="15" Content="{x:Static properties:Resources.Pos}"/>-->
                 <!--<ComboBox Grid.Row="8" Grid.Column="1" Margin="0, 10,0,0" IsEditable="false" ItemsSource="{Binding PosList, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Description" SelectedValue="{Binding Pos}" />-->
