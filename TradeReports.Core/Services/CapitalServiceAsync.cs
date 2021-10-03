@@ -29,6 +29,7 @@ namespace TradeReports.Core.Services
             Operation operation = _context.Operations
                 .Where(o => o.CloseDate <= date)
                 .OrderBy(o => o.CloseDate)
+                .OrderBy(o => o.TradeNumber)
                 .LastOrDefault();
 
             return operation != null ? operation.CapitalDT : 0;
