@@ -47,7 +47,7 @@ namespace TradeReports.Core.Services
             {
                 o.TradeNumber++;
                 o.CapitalAT = prev.CapitalDT;
-                o.CapitalDT += prev.CapitalDT + o.PL >= 0 ? o.PL : prev.CapitalDT;
+                o.CapitalDT += prev.CapitalDT + o.PL;
                 prev = o;
             });
 
@@ -139,6 +139,26 @@ namespace TradeReports.Core.Services
         }
 
 
+        public async Task RecalculateAllOperations()
+        {
+            var operations = await _context.Operations.ToListAsync();
+
+            operations = operations.OrderBy(op => op.TradeNumber).ToList();
+
+            for(int i = 0; i < operations.Count; i++)
+            {
+                var op = operations[i];
+
+                if(i > 0)
+                {
+                    var prevOp = operations[i - 1];
+                    op.CapitalAT = prevOp.CapitalDT;
+                }
+
+                op.CapitalDT = op.CapitalAT + op.PL;
+            }
+        }
+
         #region Private Methods
 
         private static Operation CreateOperation(OperationParams operationParams)
@@ -171,6 +191,7 @@ namespace TradeReports.Core.Services
                 .Where(o => o.CloseDate <= operation.CloseDate)
                 .Count() + 1;
         }
+
         #endregion
     }
 }

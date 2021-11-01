@@ -39,5 +39,7 @@ namespace TradeReports.Core.Interfaces
         /// </summary>
         /// <returns>Lista di anni</returns>
         Task<int[]> GetOperationsMonth(int year);
+
+        Task RecalculateAllOperations();
     }
 }

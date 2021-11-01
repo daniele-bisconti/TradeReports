@@ -29,6 +29,7 @@ namespace TradeReports.UI.ViewModels
         private RelayCommand _addOperation;
         private RelayCommand _deleteOperation;
         private RelayCommand _filterChanged;
+        private RelayCommand _recalculateAll;
 
         public ICommand FilterChanged => _filterChanged ?? (_filterChanged = new RelayCommand(OnFilterChanged));
         private async void OnFilterChanged()
@@ -232,7 +233,9 @@ namespace TradeReports.UI.ViewModels
                     .Take(ElementPerPage);
 
             int opsNum = Operations.Count() == 0 ? 1 : Operations.Count();
-            NumOfPages = opsNum / ElementPerPage;
+            int reminder = opsNum % ElementPerPage;
+            int division = (opsNum / ElementPerPage);
+            NumOfPages = reminder > 0 ? division  + 1: division;
             NumOfPages = NumOfPages == 0 ? 1 : NumOfPages;
 
             CurrentPage = CurrentPage > NumOfPages ? NumOfPages : CurrentPage;
@@ -252,6 +255,29 @@ namespace TradeReports.UI.ViewModels
 
         public ICommand AddOperation => _addOperation ?? (_addOperation = new RelayCommand(OnAddOperationInvoked));
         public ICommand DeleteOperation => _deleteOperation ?? (_deleteOperation = new RelayCommand(OnDeleteOperationInvoked, CanRemove));
+        public ICommand RecalculateAll => _recalculateAll ?? (_recalculateAll = new RelayCommand(OnRecalculateInvoked));
+
+        private async void OnRecalculateInvoked()
+        {
+            Operation selected = SelectedOperation;
+
+            try
+            {
+                MessageDialogResult result = await _dialogCoordinator.ShowMessageAsync(this, "Conferma ricalcolo", $"Ricalcolare i capitali di tutte le operazioni", MessageDialogStyle.AffirmativeAndNegative);
+
+                if (result == MessageDialogResult.Affirmative)
+                {
+                    await _operationsService.RecalculateAllOperations();
+                    await RefreshOperationsList();
+                    Log.Logger.Information($"Tutte le operazioni sono state ricalcolate");
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e.ToString());
+                throw;
+            }
+        }
 
         private void OnAddOperationInvoked()
             => _navigationService.NavigateTo(typeof(AddOperationViewModel).FullName);

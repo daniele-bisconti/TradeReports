@@ -34,8 +34,17 @@
             Style="{StaticResource PageTitleStyle}"
             Margin="{StaticResource MediumLeftMargin}"
             Text="{x:Static properties:Resources.OperationsPageTitle}" />
-
-        <Button
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
+            <Button
+            Height="30"
+            HorizontalAlignment="Right"
+            FontSize="12"            
+            Command="{Binding RecalculateAll}"
+            Padding="10, 2, 10, 2"
+            Margin="0, 0, 20,0">
+                Ricalcola
+            </Button>
+            <Button
             Height="30"
             HorizontalAlignment="Right"
             FontSize="12"            
@@ -44,6 +53,7 @@
             Margin="0, 0, 20,0">
             + Nuova Operazione
         </Button>
+        </StackPanel>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
