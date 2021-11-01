@@ -24,7 +24,6 @@ namespace TradeReports.Core.Services
             _categoryService = categoryServiceAsync;
         }
 
-        
         public async Task<bool> AddOperationAsync(OperationParams operationParams)
         {
             Operation operation = CreateOperation(operationParams);
@@ -94,12 +93,51 @@ namespace TradeReports.Core.Services
                 throw new ArgumentException($"No operation with id: {id} ");
         }
 
-        public async Task<IEnumerable<Operation>> GetGridDataAsync()
+        public async Task<IEnumerable<Operation>> GetOperationsAsync(int? year = null, int? month = null, int? day = null)
         {
-            List<Operation> data = await _context.Operations.ToListAsync();
+            IEnumerable<Operation> operations = await _context.Operations.ToListAsync();
 
-            return data;
+            if (year is not null)
+            {
+                operations = operations.Where(op => op.CloseDate.Year == year);
+            }
+
+            if (month is not null)
+            {
+                operations = operations.Where(op => op.CloseDate.Month == month);
+            }
+
+            if (day is not null)
+            {
+                operations = operations.Where(op => op.CloseDate.Day == day);
+            }
+
+            return operations.ToList();
         }
+
+
+
+        public async Task<int[]> GetOperationsYears()
+        {
+            int[] dates = await _context.Operations
+                .GroupBy(o => o.CloseDate.Year)
+                .Select(o => o.Key)
+                .ToArrayAsync();
+
+            return dates;
+        }
+
+        public async Task<int[]> GetOperationsMonth(int year)
+        {
+            int[] dates = await _context.Operations
+                .GroupBy(o => new { Year = o.CloseDate.Year, Month = o.CloseDate.Month})
+                .Where(o => o.Key.Year == year)
+                .Select(o => o.Key.Month)
+                .ToArrayAsync();
+
+            return dates;
+        }
+
 
         #region Private Methods
 
@@ -133,7 +171,6 @@ namespace TradeReports.Core.Services
                 .Where(o => o.CloseDate <= operation.CloseDate)
                 .Count() + 1;
         }
-
         #endregion
     }
 }

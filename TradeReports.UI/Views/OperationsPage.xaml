@@ -21,9 +21,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
-            <RowDefinition Height="11*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.5*" />
+            <!-- Title -->
+            <RowDefinition Height="auto" />
+            <!-- Filters -->
+            <RowDefinition Height="10*" />
+            <!-- DataGrid -->
+            <RowDefinition Height="auto" />
+            <!-- footer -->
         </Grid.RowDefinitions>
         <TextBlock
             Style="{StaticResource PageTitleStyle}"
@@ -39,12 +44,49 @@
             Margin="0, 0, 20,0">
             + Nuova Operazione
         </Button>
+
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto" MinWidth="200"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto" MinWidth="200"/>
+            </Grid.ColumnDefinitions>
+
+
+            <TextBlock
+                Style="{StaticResource SubtitleTextStyle}"
+                Margin="{StaticResource MediumLeftMargin}"
+                VerticalAlignment="Center"
+                Text="Anno">
+            </TextBlock>
+            <ComboBox 
+                Grid.Column="1"
+                ItemsSource="{Binding Years}" 
+                SelectedItem="{Binding SelectedYear}" 
+                Margin="20 10 20 10">
+            </ComboBox>
+
+            <TextBlock
+                Grid.Column="2"
+                Style="{StaticResource SubtitleTextStyle}"
+                Margin="{StaticResource MediumLeftMargin}"
+                VerticalAlignment="Center"
+                Text="Mese">
+            </TextBlock>
+            <ComboBox 
+                Grid.Column="3"
+                ItemsSource="{Binding Month}" 
+                SelectedItem="{Binding SelectedMonth}" 
+                Margin="20 10 20 10">
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="2" VerticalAlignment="Top">
             <DataGrid
                 AutoGenerateColumns="False"
                 GridLinesVisibility="All"
                 CanUserAddRows="False"
-                ItemsSource="{Binding Source}"
+                ItemsSource="{Binding VisualizedOperations}"
                 Margin="10,10,14,-10"
                 KeyboardNavigation.TabNavigation="Once"
                 IsReadOnly="True"
@@ -60,7 +102,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden" />
                     <DataGridTextColumn Binding="{Binding OpenDate, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}" Header="{x:Static properties:Resources.OpenDate}"/>
-                    <DataGridTextColumn Binding="{Binding CloseDate, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}" Header="{x:Static properties:Resources.CloseDate}"  SortDirection="Ascending"/>
+                    <DataGridTextColumn Binding="{Binding CloseDate, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}" Header="{x:Static properties:Resources.CloseDate}"  SortDirection="Descending"/>
                     <DataGridTextColumn Binding="{Binding Day}" Header="{x:Static properties:Resources.Day}" />
                     <DataGridTextColumn Binding="{Binding GapMinutes}" Header="{x:Static properties:Resources.GapMinutes}" />
                     <DataGridTextColumn Binding="{Binding TradeNumber}" Header="{x:Static properties:Resources.TradeNumber}"/>
@@ -103,6 +145,37 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+        </Grid>
+
+        <Grid Grid.Row="3" >
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <TextBlock Text="Num. Righe" FontSize="16" Margin="5 0 5 0"></TextBlock>
+                <Controls:NumericUpDown  Value="{Binding ElementPerPage}">
+                </Controls:NumericUpDown>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Width="50" HorizontalAlignment="Right" Margin="5 0 5 0" Command="{Binding FirstPage}">&#8402;&#8810;</Button>
+                <Button Width="50" HorizontalAlignment="Right" Margin="5 0 20 0" Command="{Binding PrevPage}">&#8810;</Button>
+            </StackPanel>
+            <TextBlock Grid.Column="2" FontSize="16">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}/{1}">
+                        <Binding Path="CurrentPage" />
+                        <Binding Path="NumOfPages" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Width="50" HorizontalAlignment="Left" Margin="20 0 5 0" Command="{Binding NextPage}">&#8811;</Button>
+                <Button Width="50" HorizontalAlignment="Left" Margin="0 0 20 0" Command="{Binding LastPage}">&#8811;| </Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

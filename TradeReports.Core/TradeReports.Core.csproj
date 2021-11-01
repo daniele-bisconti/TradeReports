@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +12,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="5.0.8" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

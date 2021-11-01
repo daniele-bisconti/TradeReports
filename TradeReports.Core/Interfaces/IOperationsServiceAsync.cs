@@ -10,7 +10,7 @@ namespace TradeReports.Core.Interfaces
 {
     public interface IOperationsServiceAsync
     {
-        Task<IEnumerable<Operation>> GetGridDataAsync();
+        Task<IEnumerable<Operation>> GetOperationsAsync(int? year = null, int? month = null, int? day = null);
 
         /// <summary>
         /// Aggiunge una nuova operazione. Se sono presenti altre operazioni 
@@ -27,5 +27,17 @@ namespace TradeReports.Core.Interfaces
         /// </summary>
         /// <param name="id">Id dell'operazione da eliminare</param>
         Task DeleteOperationAsync(string id);
+
+        /// <summary>
+        /// Restituisce la lista degli anni in cui sono state eseguite delle operazioni
+        /// </summary>
+        /// <returns>Lista di anni</returns>
+        Task<int[]> GetOperationsYears();
+
+        /// <summary>
+        /// Restituisce la lista dei mesi in cui sono state eseguite delle operazioni
+        /// </summary>
+        /// <returns>Lista di anni</returns>
+        Task<int[]> GetOperationsMonth(int year);
     }
 }

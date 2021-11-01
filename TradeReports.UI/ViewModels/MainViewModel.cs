@@ -84,7 +84,7 @@ namespace TradeReports.UI.ViewModels
 
         public async void OnNavigatedTo(object parameter)
         {
-            var ops = (await _operationsService.GetGridDataAsync()).ToList();
+            var ops = (await _operationsService.GetOperationsAsync()).ToList();
             CapitalAnalysis capAn = new CapitalAnalysis(ops);
             ChartViewModel = new CapitalVariationChartViewModel(capAn);
 
