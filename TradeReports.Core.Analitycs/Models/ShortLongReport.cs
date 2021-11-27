@@ -12,8 +12,8 @@ namespace TradeReports.Core.Analitycs.Models
         public int TotalTrades { get; private set; }
         public int NumOfShort { get; private set; }
         public int NumOfLong { get; private set; }
-        public int ShortPercentage { get => (int)Math.Round((double)(NumOfShort * 100) / TotalTrades); }
-        public int LongPercentage { get => (int)Math.Round((double)(NumOfLong * 100) / TotalTrades); }
+        public int ShortPercentage { get => NumOfShort == 0? 0 : (int)Math.Round((double)(NumOfShort * 100) / TotalTrades); }
+        public int LongPercentage { get => NumOfLong == 0 ? 0 : (int)Math.Round((double)(NumOfLong * 100) / TotalTrades); }
 
         public int NumOfLongProfit
         {
@@ -25,11 +25,11 @@ namespace TradeReports.Core.Analitycs.Models
         }
         public int LongProfitPercentage
         {
-            get => (int)Math.Round((double)(NumOfLongProfit * 100) / NumOfLong); 
+            get => NumOfLongProfit == 0 ? 0 : (int)Math.Round((double)(NumOfLongProfit * 100) / NumOfLong); 
         }
         public int LongLossPercentage
         {
-            get => (int)Math.Round((double)(NumOfLongLoss * 100) / NumOfLong);
+            get => NumOfLongLoss == 0 ? 0 : (int)Math.Round((double)(NumOfLongLoss * 100) / NumOfLong);
         }
 
         public int NumOfShortProfit
@@ -42,11 +42,11 @@ namespace TradeReports.Core.Analitycs.Models
         }
         public int ShortProfitPercentage
         {
-            get => (int)Math.Round((double)(NumOfShortProfit * 100) / NumOfShort);
+            get => NumOfShortProfit == 0 ? 0 : (int)Math.Round((double)(NumOfShortProfit * 100) / NumOfShort);
         }
         public int ShortLossPercentage
         {
-            get => (int)Math.Round((double)(NumOfShortLoss * 100) / NumOfShort);
+            get => NumOfShortLoss == 0 ? 0 : (int)Math.Round((double)(NumOfShortLoss * 100) / NumOfShort);
         }
 
         private IEnumerable<Operation> _operations;
