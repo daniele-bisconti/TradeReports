@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TradeReports.Core.Analitycs.Models;
 using TradeReports.Core.Types;
 
 namespace TradeReports.Core.Analytics.Interfaces
@@ -12,5 +13,6 @@ namespace TradeReports.Core.Analytics.Interfaces
         Task<Dictionary<DateTime, decimal>> GetCapitalVariation(DateTimeAggregation aggregation);
         Task<Dictionary<DateTime, List<decimal>>> GetGroupedCapitals(DateTimeAggregation aggregation);
         Task<Dictionary<DateTime, decimal>> GetMovingAverage(int period);
+        Task<ShortLongReport> GetShortLongReport(int year);
     }
 }

@@ -222,4 +222,7 @@
   <data name="DeleteTool" xml:space="preserve">
     <value>Rimuovi Tool</value>
   </data>
+  <data name="ShortLongReportTitle" xml:space="preserve">
+    <value>Short Long</value>
+  </data>
 </root>

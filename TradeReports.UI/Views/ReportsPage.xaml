@@ -7,7 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:properties="clr-namespace:TradeReports.UI.Properties"
     mc:Ignorable="d"
-    d:DesignHeight="450" d:DesignWidth="800">
+    d:DesignHeight="450" d:DesignWidth="800"
+    xmlns:Controls="clr-namespace:TradeReports.UI.Controls">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
@@ -21,10 +22,11 @@
             Grid.Row="1"
             Margin="{StaticResource MediumLeftRightMargin}"
             Background="{DynamicResource MahApps.Brushes.Gray10}">
-            <!--
-            The Mahapps Gray10 color represents where you should place your content.
-            Place your content here.
-            -->
+            <TabControl Style="{DynamicResource MahApps.Styles.TabControl.Animated}">
+                <TabItem Header="{x:Static properties:Resources.ShortLongReportTitle}">
+                    <Controls:ShortLongReport DataContext="{Binding ShortLongReportViewModel}"></Controls:ShortLongReport>
+                </TabItem>
+            </TabControl>
         </Grid>
     </Grid>
 </Page>

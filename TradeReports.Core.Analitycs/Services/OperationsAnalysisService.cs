@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TradeReports.Core.Analitycs.Capital;
+using TradeReports.Core.Analitycs.Models;
 using TradeReports.Core.Analytics.Interfaces;
 using TradeReports.Core.Interfaces;
 using TradeReports.Core.Repository;
@@ -43,6 +44,15 @@ namespace TradeReports.Core.Analytics.Services
 
             CapitalAnalysis capitalAnalysis = new CapitalAnalysis(operations.OrderBy(op => op.CloseDate).ToList());
             return capitalAnalysis.MovingAverage(period);
+        }
+
+        public async Task<ShortLongReport> GetShortLongReport(int year)
+        {
+            var operations = await _context.Operations
+                .Where(op => op.CloseDate.Year == year)
+                .ToListAsync();
+
+            return new ShortLongReport(operations);
         }
     }
 }

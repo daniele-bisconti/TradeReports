@@ -31,10 +31,10 @@ namespace TradeReports.UI.ViewModels
         // TODO WTS: Change the icons and titles for all HamburgerMenuItems here.
         public ObservableCollection<HamburgerMenuItem> MenuItems { get; } = new ObservableCollection<HamburgerMenuItem>()
         {
-            new HamburgerMenuGlyphItem() { Label = Resources.ShellMainPage, Glyph = "\uE8A5", TargetPageType = typeof(MainViewModel) },
-            new HamburgerMenuGlyphItem() { Label = Resources.ShellOperationsPage, Glyph = "\uE8A5", TargetPageType = typeof(OperationsViewModel) },
-            new HamburgerMenuGlyphItem() { Label = Resources.ShellReportsPage, Glyph = "\uE8A5", TargetPageType = typeof(ReportsViewModel) },
-            new HamburgerMenuGlyphItem() { Label = Resources.ShellCategoryPage, Glyph = "\uE8A5", TargetPageType = typeof(CategoriesViewModel) },
+            new HamburgerMenuGlyphItem() { Label = Resources.ShellMainPage, Glyph = "\uE80f", TargetPageType = typeof(MainViewModel) },
+            new HamburgerMenuGlyphItem() { Label = Resources.ShellOperationsPage, Glyph = "\uE700", TargetPageType = typeof(OperationsViewModel) },
+            new HamburgerMenuGlyphItem() { Label = Resources.ShellReportsPage, Glyph = "\uE9f9", TargetPageType = typeof(ReportsViewModel) },
+            new HamburgerMenuGlyphItem() { Label = Resources.ShellCategoryPage, Glyph = "\uEb7e", TargetPageType = typeof(CategoriesViewModel) },
         };
 
         public RelayCommand GoBackCommand => _goBackCommand ?? (_goBackCommand = new RelayCommand(OnGoBack, CanGoBack));

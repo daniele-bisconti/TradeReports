@@ -1,0 +1,164 @@
+﻿<UserControl x:Class="TradeReports.UI.Controls.ShortLongReport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TradeReports.UI.Controls"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"     
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="CardBorder" TargetType="{x:Type Border}">
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Button.Border}" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="CornerRadius" Value="3"/>
+                <Setter Property="MaxHeight" Value="100"/>
+                <Setter Property="MinHeight" Value="50"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid > 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border Margin="10" Style="{StaticResource CardBorder}">
+                <StackPanel Orientation="Vertical">
+                    <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5" FontWeight="Bold"  Foreground="Red">
+                            <Run Text="Short" />
+                            <Run Text=":" />
+                        </TextBlock>
+                    </Viewbox>
+                    <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5">
+                            <Run Text="{Binding ShortLongReport.NumOfShort, Mode=OneWay}" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            <Run Text="{Binding ShortLongReport.ShortPercentage, Mode=OneWay, StringFormat=({0}% ) }" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                        </TextBlock>
+                    </Viewbox>
+                </StackPanel>
+            </Border>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Margin="10" Style="{StaticResource CardBorder}">
+                    <StackPanel Orientation="Vertical">
+                        <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5" >
+                            <Run Text="Profit" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            <Run Text=":" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            </TextBlock>
+                        </Viewbox>
+                        <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5">
+                                <Run Text="{Binding ShortLongReport.NumOfShortProfit, Mode=OneWay}" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                                <Run Text="{Binding ShortLongReport.ShortProfitPercentage, Mode=OneWay, StringFormat=({0}% ) }" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            </TextBlock>
+                        </Viewbox>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Margin="10" Style="{StaticResource CardBorder}">
+                    <StackPanel Orientation="Vertical">
+                        <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5">
+                            <Run Text="Loss" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            <Run Text=":" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            </TextBlock>
+                        </Viewbox>
+                        <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5">
+                                <Run Text="{Binding ShortLongReport.NumOfShortLoss, Mode=OneWay}" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                                <Run Text="{Binding ShortLongReport.ShortLossPercentage, Mode=OneWay, StringFormat=({0}% ) }" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            </TextBlock>
+                        </Viewbox>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <lvc:PieChart Grid.Row="2" Series="{Binding ShortSeries}" MaxHeight="400" LegendLocation="Bottom">
+
+            </lvc:PieChart>
+        </Grid>
+        
+        <Grid Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border Margin="10" Style="{StaticResource CardBorder}">
+                <StackPanel Orientation="Vertical">
+                    <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5"  FontWeight="Bold"  Foreground="Green">
+                            <Run Text="Long"/>
+                            <Run Text=":"/>
+                        </TextBlock>
+                    </Viewbox>
+                    <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5">
+                            <Run Text="{Binding ShortLongReport.NumOfLong, Mode=OneWay}" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            <Run Text="{Binding ShortLongReport.LongPercentage, Mode=OneWay, StringFormat=({0}% ) }" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                        </TextBlock>
+                    </Viewbox>
+                </StackPanel>
+            </Border>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Margin="10" Style="{StaticResource CardBorder}">
+                    <StackPanel Orientation="Vertical">
+                        <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5">
+                            <Run Text="Profit" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            <Run Text=":" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            </TextBlock>
+                        </Viewbox>
+                        <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5">
+                                <Run Text="{Binding ShortLongReport.NumOfLongProfit, Mode=OneWay}" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                                <Run Text="{Binding ShortLongReport.LongProfitPercentage, Mode=OneWay, StringFormat=({0}% ) }" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            </TextBlock>
+                        </Viewbox>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Margin="10" Style="{StaticResource CardBorder}">
+                    <StackPanel Orientation="Vertical">
+                        <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5">
+                            <Run Text="Loss" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            <Run Text=":" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            </TextBlock>
+                        </Viewbox>
+                        <Viewbox MaxHeight="30" HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="left" Padding="10, 2, 2, 5">
+                                <Run Text="{Binding ShortLongReport.NumOfLongLoss, Mode=OneWay}" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                                <Run Text="{Binding ShortLongReport.LongLossPercentage, Mode=OneWay, StringFormat=({0}% ) }" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                            </TextBlock>
+                        </Viewbox>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <lvc:PieChart Grid.Row="2" Series="{Binding LongSeries}" MaxHeight="400" LegendLocation="Bottom">
+
+            </lvc:PieChart>
+        </Grid>
+    </Grid>
+</UserControl>
