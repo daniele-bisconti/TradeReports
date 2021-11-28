@@ -17,11 +17,23 @@ namespace TradeReports.Core.Analitycs.Models
 
         public int NumOfLongProfit
         {
-            get => _operations.Count(op => op.Pos.Description == PosType.Long && op.PL > 0);
+            get => _operations.Count(op => op.Pos.Description == PosType.Long && op.PL > 0 && op.Category.Description.ToUpper().Trim() != "MARKET CAP");
         }
         public int NumOfLongLoss
         {
-            get => _operations.Count(op => op.Pos.Description == PosType.Long && op.PL < 0);
+            get => _operations.Count(op => op.Pos.Description == PosType.Long && op.PL < 0 && op.Category.Description.ToUpper().Trim() != "MARKET CAP");
+        }
+        public decimal AmountOfLongProfit
+        {
+            get => _operations
+                .Where(op => op.Pos.Description == PosType.Long && op.PL > 0 && op.Category.Description.ToUpper().Trim() != "MARKET CAP")
+                .Sum(op => op.PL);
+        }
+        public decimal AmountOfLongLoss
+        {
+            get => Math.Abs(_operations
+                .Where(op => op.Pos.Description == PosType.Long && op.PL < 0 && op.Category.Description.ToUpper().Trim() != "MARKET CAP")
+                .Sum(op => op.PL));
         }
         public int LongProfitPercentage
         {
@@ -34,11 +46,23 @@ namespace TradeReports.Core.Analitycs.Models
 
         public int NumOfShortProfit
         {
-            get => _operations.Count(op => op.Pos.Description == PosType.Short && op.PL > 0);
+            get => _operations.Count(op => op.Pos.Description == PosType.Short && op.PL > 0 && op.Category.Description.ToUpper().Trim() != "MARKET CAP");
         }
         public int NumOfShortLoss
         {
-            get => _operations.Count(op => op.Pos.Description == PosType.Short && op.PL < 0);
+            get => _operations.Count(op => op.Pos.Description == PosType.Short && op.PL < 0 && op.Category.Description.ToUpper().Trim() != "MARKET CAP");
+        }
+        public decimal AmountOfShortLoss
+        {
+            get =>  Math.Abs( _operations
+                .Where(op => op.Pos.Description == PosType.Short && op.PL < 0 && op.Category.Description.ToUpper().Trim() != "MARKET CAP")
+                .Sum(op => op.PL));
+        }
+        public decimal AmountOfShortProfit
+        {
+            get => _operations
+                .Where(op => op.Pos.Description == PosType.Short && op.PL > 0 && op.Category.Description.ToUpper().Trim() != "MARKET CAP")
+                .Sum(op => op.PL);
         }
         public int ShortProfitPercentage
         {
@@ -55,9 +79,9 @@ namespace TradeReports.Core.Analitycs.Models
         {
             _operations = operations;
 
-            TotalTrades = operations.Count();
-            NumOfShort = operations.Count(op => op.Pos.Description == PosType.Short);
-            NumOfLong = TotalTrades - NumOfShort;
+            TotalTrades = operations.Count( op => op.Category.Description.ToUpper().Trim() != "MARKET CAP");
+            NumOfShort = operations.Count(op => op.Pos.Description == PosType.Short && op.Category.Description.ToUpper().Trim() != "MARKET CAP");
+            NumOfLong = operations.Count(op => op.Pos.Description == PosType.Long && op.Category.Description.ToUpper().Trim() != "MARKET CAP");
         }
 
 

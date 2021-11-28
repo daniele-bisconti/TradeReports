@@ -16,51 +16,183 @@ namespace TradeReports.UI.ViewModels
 {
     public class ShortLongReportViewModel : ObservableObject
     {
-        public ShortLongReport ShortLongReport { get; set; }
+        private readonly IEnumerable<Operation> _operations;
+
+        private ShortLongReport _shortLongReport;
+        public ShortLongReport ShortLongReport
+        {
+            get { return _shortLongReport; }
+            set
+            {
+                SetProperty(ref _shortLongReport, value);
+            }
+        }
 
         public SeriesCollection ShortSeries { get; set; } = new SeriesCollection();
         public SeriesCollection LongSeries { get; set; } = new SeriesCollection();
+        public SeriesCollection ShortAmountSeries { get; set; } = new SeriesCollection();
+        public SeriesCollection LongAmountSeries { get; set; } = new SeriesCollection();
+
+        private DateTime? _startDate;
+
+        public DateTime? StartDate
+        {
+            get { return _startDate; }
+            set
+            {
+                SetProperty(ref _startDate, value);
+                UpdateCharts();
+            }
+        }
+
+
+        private DateTime? _endDate;
+
+        public DateTime? EndDate
+        {
+            get { return _endDate; }
+            set
+            {
+                SetProperty(ref _endDate, value);
+                UpdateCharts();
+            }
+        }
 
         public ShortLongReportViewModel(IEnumerable<Operation> operations)
         {
-            ShortLongReport = new ShortLongReport(operations);
+            _operations = operations;
 
-            ShortSeries.Add(new PieSeries
+            _startDate = DateTime.Today;
+            _endDate = DateTime.Today.AddDays(1).AddTicks(-1); 
+            UpdateCharts();
+        }
+
+        private void UpdateCharts()
+        {
+            ShortLongReport = new ShortLongReport(_operations.Where(op => op.CloseDate >= StartDate && op.CloseDate <= EndDate));
+            SetShortSeries();
+
+            SetLongSeries();
+
+            SetShortAmountSeries();
+
+            SetLongAmountSeries();
+        }
+
+        private void SetShortAmountSeries()
+        {
+            if (!ShortAmountSeries.Any())
             {
-                Title = "Short Loss",
-                Values = new ChartValues<ObservableValue> { new ObservableValue(ShortLongReport.ShortLossPercentage) },
-                DataLabels = true,
-                Fill = Brushes.Red,
-                FontSize = 14
-            });
+                ShortAmountSeries.Add(new PieSeries
+                {
+                    Title = "€ Loss",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue((double)ShortLongReport.AmountOfShortLoss) },
+                    DataLabels = true,
+                    Fill = Brushes.Red,
+                    FontSize = 14
+                });
 
-            ShortSeries.Add(new PieSeries
+                ShortAmountSeries.Add(new PieSeries
+                {
+                    Title = "€ Profit",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue((double)ShortLongReport.AmountOfShortProfit) },
+                    DataLabels = true,
+                    Fill = Brushes.Green,
+                    FontSize = 14
+                });
+            }
+            else
             {
-                Title = "Short Profit",
-                Values = new ChartValues<ObservableValue> { new ObservableValue(ShortLongReport.ShortProfitPercentage) },
-                DataLabels = true,
-                Fill = Brushes.Green,
-                FontSize = 14
-            });
+                ((ObservableValue)ShortAmountSeries[0].Values[0]).Value = (double)ShortLongReport.AmountOfShortLoss;
+                ((ObservableValue)ShortAmountSeries[1].Values[0]).Value = (double)ShortLongReport.AmountOfShortProfit;
+            }
+        }
 
-            LongSeries.Add(new PieSeries
+        private void SetLongAmountSeries()
+        {
+            if (!LongAmountSeries.Any())
             {
-                Title = "Long Loss",
-                Values = new ChartValues<ObservableValue> { new ObservableValue(ShortLongReport.LongLossPercentage) },
-                DataLabels = true,
-                Fill = Brushes.Red,
-                FontSize = 14
-            });
+                LongAmountSeries.Add(new PieSeries
+                {
+                    Title = "€ Loss",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue((double)ShortLongReport.AmountOfLongLoss) },
+                    DataLabels = true,
+                    Fill = Brushes.Red,
+                    FontSize = 14
+                });
 
-            LongSeries.Add(new PieSeries
+                LongAmountSeries.Add(new PieSeries
+                {
+                    Title = "€ Profit",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue((double)ShortLongReport.AmountOfLongProfit) },
+                    DataLabels = true,
+                    Fill = Brushes.Green,
+                    FontSize = 14
+                });
+            }
+            else
             {
-                Title = "Long Profit",
-                Values = new ChartValues<ObservableValue> { new ObservableValue(ShortLongReport.LongProfitPercentage) },
-                DataLabels = true,
-                Fill = Brushes.Green,
-                FontSize = 14
-            });
+                ((ObservableValue)LongAmountSeries[0].Values[0]).Value = (double)ShortLongReport.AmountOfLongLoss;
+                ((ObservableValue)LongAmountSeries[1].Values[0]).Value = (double)ShortLongReport.AmountOfLongProfit;
+            }
+        }
 
+        private void SetLongSeries()
+        {
+            if (!LongSeries.Any())
+            {
+                LongSeries.Add(new PieSeries
+                {
+                    Title = "% Loss",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(ShortLongReport.LongLossPercentage) },
+                    DataLabels = true,
+                    Fill = Brushes.Red,
+                    FontSize = 14
+                });
+
+                LongSeries.Add(new PieSeries
+                {
+                    Title = "% Profit",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(ShortLongReport.LongProfitPercentage) },
+                    DataLabels = true,
+                    Fill = Brushes.Green,
+                    FontSize = 14
+                });
+            }
+            else
+            {
+                ((ObservableValue)LongSeries[0].Values[0]).Value = (double)ShortLongReport.NumOfLongLoss;
+                ((ObservableValue)LongSeries[1].Values[0]).Value = (double)ShortLongReport.NumOfLongProfit;
+            }
+        }
+
+        private void SetShortSeries()
+        {
+            if (!ShortSeries.Any())
+            {
+                ShortSeries.Add(new PieSeries
+                {
+                    Title = "% Loss",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(ShortLongReport.ShortLossPercentage) },
+                    DataLabels = true,
+                    Fill = Brushes.Red,
+                    FontSize = 14
+                });
+
+                ShortSeries.Add(new PieSeries
+                {
+                    Title = "% Profit",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(ShortLongReport.ShortProfitPercentage) },
+                    DataLabels = true,
+                    Fill = Brushes.Green,
+                    FontSize = 14
+                });
+            }
+            else
+            {
+                ((ObservableValue)ShortSeries[0].Values[0]).Value = (double)ShortLongReport.NumOfShortLoss;
+                ((ObservableValue)ShortSeries[1].Values[0]).Value = (double)ShortLongReport.NumOfShortProfit;
+            }
         }
     }
 }
